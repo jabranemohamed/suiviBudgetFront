@@ -53,14 +53,14 @@ export class UserService {
     );
   }
 
-  logOut(): Observable<any> {
-    return this.http.post(this.API_URL + "logout", {}).pipe(
-      map(response => {
+  logOut():void {
+   // return this.http.post(this.API_URL + "utilisateurs/logout", {}).pipe(
+    //  map(response => {
         localStorage.removeItem('currentUser');
         localStorage.removeItem('token');
         this.currentUserSubject.next(null);
-      })
-    );
+     // })
+    //);
   }
 
   register(user: Utilisateur): Observable<any> {

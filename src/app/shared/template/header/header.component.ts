@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { ThemeConstantService } from '../../services/theme-constant.service';
+import {UserService} from "../../services/user.service";
+import {Router} from '@angular/router';
+import {FormBuilder} from "@angular/forms";
 
 @Component({
     selector: 'app-header',
@@ -13,7 +16,8 @@ export class HeaderComponent{
     isFolded : boolean;
     isExpand : boolean;
 
-    constructor( private themeService: ThemeConstantService) {}
+    constructor( private themeService: ThemeConstantService, private userService: UserService, private router: Router) {
+    }
 
     ngOnInit(): void {
         this.themeService.isMenuFoldedChanges.subscribe(isFolded => this.isFolded = isFolded);
@@ -31,6 +35,10 @@ export class HeaderComponent{
         this.themeService.toggleExpand(this.isExpand);
         this.themeService.toggleFold(this.isFolded);
     }
+
+  logOut() {
+      this.router.navigate(['/authentication/login-2']);
+  }
 
     searchToggle(): void {
         this.searchVisible = !this.searchVisible;
