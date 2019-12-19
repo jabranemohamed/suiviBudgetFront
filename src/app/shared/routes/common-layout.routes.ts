@@ -20,12 +20,12 @@ export const CommonLayout_ROUTES: Routes = [
                 path: '',
                 redirectTo: '/dashboard',
                 pathMatch: 'full'
-            }, 
+            },
             {
                 path: '',
                 loadChildren: () => import('../../apps/apps.module').then(m => m.AppsModule)
             },
-        ]    
+        ]
     },
 
     //Component
@@ -36,7 +36,11 @@ export const CommonLayout_ROUTES: Routes = [
                 path: '',
                 redirectTo: '/dashboard',
                 pathMatch: 'full'
-            }, 
+            },
+            {
+              path: '',
+              loadChildren: () => import('../../components/admin/components-admin.module').then(m => m.ComponentsAdminModule)
+            },
             {
                 path: '',
                 loadChildren: () => import('../../components/general/components-general.module').then(m => m.ComponentsGeneralModule)
@@ -78,12 +82,12 @@ export const CommonLayout_ROUTES: Routes = [
                 path: '',
                 redirectTo: '/dashboard',
                 pathMatch: 'full'
-            }, 
+            },
             {
                 path: '',
                 loadChildren: () => import('../../charts/charts.module').then(m => m.ChartsModule)
             },
-        ]    
+        ]
     },
 
     //Pages
@@ -97,11 +101,11 @@ export const CommonLayout_ROUTES: Routes = [
                 path: '',
                 redirectTo: '/dashboard',
                 pathMatch: 'full'
-            }, 
+            },
             {
                 path: '',
                 loadChildren: () => import('../../pages/pages.module').then(m => m.PagesModule)
             },
-        ]    
-    }    
+        ]
+    }
 ];

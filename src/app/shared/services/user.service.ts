@@ -41,10 +41,9 @@ export class UserService {
     return this.http.post<any>(this.API_URL + 'utilisateurs/login', {},
       {params: new HttpParams().set('username', mat).append('password',password)}).pipe(
       map(response =>{
-        console.log("******"+ response)
         if(response){
           sessionStorage.setItem('currentUser',mat);
-          let tokenStr= 'Bearer '+response.token;
+          let tokenStr= response.token;
           sessionStorage.setItem('token', tokenStr);
           this.currentUserSubject.next(response);
           return response;
@@ -54,13 +53,9 @@ export class UserService {
   }
 
   logOut():void {
-   // return this.http.post(this.API_URL + "utilisateurs/logout", {}).pipe(
-    //  map(response => {
         localStorage.removeItem('currentUser');
         localStorage.removeItem('token');
         this.currentUserSubject.next(null);
-     // })
-    //);
   }
 
   register(user: Utilisateur): Observable<any> {

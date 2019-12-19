@@ -15,11 +15,7 @@ import { FullLayoutComponent } from './layouts/full-layout/full-layout.component
 
 import { NgChartjsModule } from 'ng-chartjs';
 import { ThemeConstantService } from './shared/services/theme-constant.service';
-import { RolesComponent } from './components/admin/roles/roles.component';
-import { UtilisateursComponent } from './components/admin/utilisateurs/utilisateurs.component';
-import { CentresComponent } from './components/admin/centres/centres.component';
-import { BudgetsComponent } from './components/admin/budgets/budgets.component';
-import { FilesUploadComponent } from './components/admin/files-upload/files-upload.component';
+import {ComponentsAdminModule} from "./components/admin/components-admin.module";
 
 registerLocaleData(en);
 
@@ -27,12 +23,7 @@ registerLocaleData(en);
     declarations: [
         AppComponent,
         CommonLayoutComponent,
-        FullLayoutComponent,
-        RolesComponent,
-        UtilisateursComponent,
-        CentresComponent,
-        BudgetsComponent,
-        FilesUploadComponent
+        FullLayoutComponent
     ],
     imports: [
         BrowserModule,
@@ -41,12 +32,13 @@ registerLocaleData(en);
         AppRoutingModule,
         TemplateModule,
         SharedModule,
-        NgChartjsModule
+        NgChartjsModule,
+        ComponentsAdminModule
     ],
     providers: [
-        { 
+        {
             provide: NZ_I18N,
-            useValue: en_US, 
+            useValue: en_US,
         },
         ThemeConstantService
     ],

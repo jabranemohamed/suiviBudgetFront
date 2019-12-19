@@ -26,7 +26,7 @@ export const ROUTES: SideNavInterface[] = [
         icon: 'appstore',
         submenu: [
             {
-                path: '/apps/chat',
+                path: '/components/admin/roles',
                 title: 'Rôle',
                 iconType: 'nzIcon',
                 icon: 'trademark',
@@ -34,7 +34,7 @@ export const ROUTES: SideNavInterface[] = [
                 submenu: []
             },
             {
-                path: '/apps/file-manager',
+                path: '/components/admin/utilisateurs',
                 title: 'Utilisateur',
                 iconType: 'nzIcon',
                 icon: 'user',
@@ -84,4 +84,4 @@ export const ROUTES: SideNavInterface[] = [
             }
         ]
     }
-]    
+]

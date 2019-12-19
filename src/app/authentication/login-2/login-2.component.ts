@@ -31,7 +31,8 @@ export class Login2Component implements OnInit {
     }
 
     ngOnInit(): void {
-        if (this.userService.currentUserValue) {
+      var currentUserExist = localStorage.getItem('currentUser');
+        if (currentUserExist && this.userService.currentUserValue) {
             this.router.navigate(['/dashboard/default']);
             return;
           } else {
