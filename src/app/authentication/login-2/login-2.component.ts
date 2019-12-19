@@ -6,7 +6,8 @@ import {Router} from '@angular/router';
 
 
 @Component({
-    templateUrl: './login-2.component.html'
+    templateUrl: './login-2.component.html',
+     styleUrls: ['./login-2.component.css']
 })
 
 export class Login2Component implements OnInit {
@@ -22,9 +23,10 @@ export class Login2Component implements OnInit {
         this.user.matricule = this.loginForm.get('userName').value;
         this.user.password = this.loginForm.get('password').value;
         this.userService.login(this.user).subscribe(data => {
+            console.log(data);
             this.router.navigate(['/dashboard/default']);
           }, err => {
-            this.errorMessage = 'Username or password is incorrect.';
+            this.errorMessage = 'Erreur lors de le login. Utilisateur non retrouver';
           });
     }
 

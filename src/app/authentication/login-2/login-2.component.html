@@ -10,11 +10,14 @@
                         <h2 class="m-t-20">Suivi de Budget</h2>
                         <p class="m-b-30">Entrer votre matricule et mot de passe</p>
                         <form nz-form [formGroup]="loginForm" class="login-form" (ngSubmit)="submitForm()">
+                          <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+                            {{errorMessage}}
+                          </div>
                             <nz-form-item>
                                 <nz-form-label nzRequired nzFor="userName">Nom d'utilisateur</nz-form-label>
                                 <nz-form-control>
                                     <nz-input-group [nzPrefix]="prefixUser">
-                                        <input type="text" nz-input formControlName="nom" placeholder="Username">
+                                        <input type="text" nz-input formControlName="userName" placeholder="Username">
                                     </nz-input-group>
                                     <nz-form-explain *ngIf="loginForm.get('userName').dirty && loginForm.get('userName').errors">Entrer votre matricule!</nz-form-explain>
                                 </nz-form-control>

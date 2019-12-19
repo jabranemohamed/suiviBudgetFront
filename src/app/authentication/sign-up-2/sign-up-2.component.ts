@@ -46,8 +46,12 @@ export class SignUp2Component implements OnInit {
       }
 
       submitForm() {
+      //We can optimize using the user object in the form directly
+      this.user = new Utilisateur();
+      this.user.matricule = this.signUpForm.get('userName').value;
+      this.user.password = this.signUpForm.get('password').value;
         this.userService.register(this.user).subscribe(data => {
-          this.router.navigate(['/login']);
+          this.router.navigate(['/authentication/login-2']);
         }, err => {
           this.errorMessage = 'Username is already exist';
         });

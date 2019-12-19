@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import {Utilisateur} from '../interfaces/utilisateur';
+import set = Reflect.set;
 
 @Injectable({
   providedIn: 'root'
@@ -31,20 +32,23 @@ export class UserService {
     return this.currentUserSubject.value;
   }
 
-  login(user: Utilisateur): Observable<any> {
-    const headers = new HttpHeaders(
-      user ? {
-        authorization:'Basic ' + btoa(user.matricule + ':' + user.password)
-      } : {}
-    );
+//{username:mat,password:password}}
 
-    return this.http.get<any> (this.API_URL + 'utilisateurs/login', {headers:headers}).pipe(
+
+  login(utilisateur: Utilisateur): Observable<any> {
+    let mat = utilisateur.matricule;
+    let password = utilisateur.password
+    return this.http.post<any>(this.API_URL + 'utilisateurs/login', {},
+      {params: new HttpParams().set('username', mat).append('password',password)}).pipe(
       map(response =>{
+        console.log("******"+ response)
         if(response){
-          localStorage.setItem('currentUser', JSON.stringify(response));
+          sessionStorage.setItem('currentUser',mat);
+          let tokenStr= 'Bearer '+response.token;
+          sessionStorage.setItem('token', tokenStr);
           this.currentUserSubject.next(response);
+          return response;
         }
-        return response;
       })
     );
   }
@@ -53,13 +57,14 @@ export class UserService {
     return this.http.post(this.API_URL + "logout", {}).pipe(
       map(response => {
         localStorage.removeItem('currentUser');
+        localStorage.removeItem('token');
         this.currentUserSubject.next(null);
       })
     );
   }
 
   register(user: Utilisateur): Observable<any> {
-    return this.http.post(this.API_URL + "registration", JSON.stringify(user),
+    return this.http.post(this.API_URL + "utilisateurs/registration", JSON.stringify(user),
   {headers: {"Content-Type":"application/json; charset=UTF-8"}});
   }
 
