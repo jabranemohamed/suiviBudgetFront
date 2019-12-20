@@ -28,7 +28,7 @@
       <td>{{item.prenom}}</td>
       <td>{{item.role.libelle}}</td>
       <td>{{item.localUnit.code}}</td>
-      <td>{{item.isActive}}</td>
+      <td> <i nz-icon nzType="check" *ngIf="item.localUnit.code" theme="outline"></i></td>
     </tr>
     </tbody>
   </nz-table>

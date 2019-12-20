@@ -1,1 +1,24 @@
-<p>budgets works!</p>
+<nz-card>
+  <h4>Rechercher un Budget</h4>
+  <div class="m-t-25">
+    <form nz-form  [nzLayout]="'inline'"   [formGroup]="budgetValidationForm" (ngSubmit)="registerSubmitForm()">
+
+      <nz-form-item>
+        <nz-form-label  nzRequired>Année</nz-form-label>
+        <nz-form-control >
+          <nz-date-picker formControlName="datePicker"></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label  nzRequired>Code UL</nz-form-label>
+        <nz-form-control >
+          <input formControlName="codeUL" nz-input placeholder="Code UL"/>
+        </nz-form-control>
+      </nz-form-item>
+
+      <button nz-button nzType="primary"><i nz-icon nzType="search"></i>Search</button>
+
+    </form>
+  </div>
+</nz-card>
