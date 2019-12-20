@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {RoleService} from "../../../shared/services/role.service";
-import {Utilisateur} from "../../../shared/interfaces/utilisateur";
 import {TableService} from "../../../shared/services/table.service";
 
 @Component({

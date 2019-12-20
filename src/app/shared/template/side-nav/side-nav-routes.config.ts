@@ -42,7 +42,7 @@ export const ROUTES: SideNavInterface[] = [
                 submenu: []
             },
             {
-                path: '/apps/mail',
+                path: '/components/admin/centres',
                 title: 'Centre',
                 iconType: 'nzIcon',
                 icon: 'pic-center',
@@ -50,7 +50,7 @@ export const ROUTES: SideNavInterface[] = [
                 submenu: []
             },
             {
-                path: '/apps/mail',
+                path: '/components/admin/budgets',
                 title: 'Budget',
                 iconType: 'nzIcon',
                 icon: 'pie-chart',

@@ -9,7 +9,7 @@ import set = Reflect.set;
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class AuthentificationService {
 
   public currentUser: Observable<Utilisateur>;
   private currentUserSubject: BehaviorSubject<Utilisateur>;

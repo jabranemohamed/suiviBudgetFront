@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup,  Validators } from '@angular/forms';
 import { Utilisateur } from '../../shared/interfaces/utilisateur';
-import { UserService } from '../../shared/services/user.service';
+import { AuthentificationService } from '../../shared/services/authentification.service';
 import {Router} from '@angular/router';
 
 
@@ -27,7 +27,7 @@ export class SignUp2Component implements OnInit {
         }
     }
 
-    constructor(private fb: FormBuilder, private userService: UserService, private router: Router) {
+    constructor(private fb: FormBuilder, private userService: AuthentificationService, private router: Router) {
     }
 
     ngOnInit(): void {

@@ -6,7 +6,7 @@ import {environment} from "../../../environments/environment";
 @Injectable({
   providedIn: 'root'
 })
-export class RoleService {
+export class UtilisateurService {
 
   token: String;
   headers: HttpHeaders;
@@ -14,12 +14,11 @@ export class RoleService {
 
   constructor(private http: HttpClient) {
     this.token = sessionStorage.getItem('token');
-    this.headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    this.headers = new HttpHeaders({'Content-Type': 'application/json'});
     this.headers = this.headers.append('Authorization', 'Bearer ' + this.token);
   }
 
-  public findAllRoles(): Observable<any> {
-    console.log(this.headers)
-    return this.http.get(this.API_URL + "roles" , {headers: this.headers});
+  public findAllUtilisateurs(): Observable<any> {
+    return this.http.get(this.API_URL + "utilisateurs", {headers: this.headers});
   }
 }

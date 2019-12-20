@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ThemeConstantService } from '../../services/theme-constant.service';
-import {UserService} from "../../services/user.service";
+import {AuthentificationService} from "../../services/authentification.service";
 import {Router} from '@angular/router';
 import {FormBuilder} from "@angular/forms";
 
@@ -16,7 +16,7 @@ export class HeaderComponent{
     isFolded : boolean;
     isExpand : boolean;
 
-    constructor( private themeService: ThemeConstantService, private userService: UserService, private router: Router) {
+    constructor(private themeService: ThemeConstantService, private userService: AuthentificationService, private router: Router) {
     }
 
     ngOnInit(): void {

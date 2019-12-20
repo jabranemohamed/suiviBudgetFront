@@ -1,1 +1,35 @@
-<p>utilisateurs works!</p>
+<nz-card>
+  <div class="row m-b-30">
+    <div class="col-lg-8">
+
+    </div>
+  </div>
+
+  <nz-table #ordersListTable [nzData]="displayData"
+            (nzCurrentPageDataChange)="currentPageDataChange($event)"
+            (nzPageIndexChange)="refreshStatus()"
+            (nzPageSizeChange)="refreshStatus()">
+    <thead (nzSortChange)="sort($event)" nzSingleSort>
+    <tr>
+      <th nzShowSort nzSortKey="id">ID</th>
+      <th nzShowSort nzSortKey="matricule">Matricule</th>
+      <th nzShowSort nzSortKey="nom">Nom</th>
+      <th nzShowSort nzSortKey="prenom">Prénom</th>
+      <th nzShowSort nzSortKey="role">Rôle</th>
+      <th nzShowSort nzSortKey="localUnit">Code UL</th>
+      <th nzShowSort nzSortKey="status">statut (activé, désactivé)L</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of ordersListTable.data | search:'name':search as count ;  let i=index">
+      <td>#{{item.id}}</td>
+      <td>{{item.matricule}}</td>
+      <td>{{item.nom}}</td>
+      <td>{{item.prenom}}</td>
+      <td>{{item.role.libelle}}</td>
+      <td>{{item.localUnit.code}}</td>
+      <td>{{item.isActive}}</td>
+    </tr>
+    </tbody>
+  </nz-table>
+</nz-card>

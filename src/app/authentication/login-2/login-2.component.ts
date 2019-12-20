@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup,  Validators } from '@angular/forms';
 import { Utilisateur } from '../../shared/interfaces/utilisateur';
-import { UserService } from '../../shared/services/user.service';
+import { AuthentificationService } from '../../shared/services/authentification.service';
 import {Router} from '@angular/router';
 
 
@@ -15,7 +15,7 @@ export class Login2Component implements OnInit {
     user: Utilisateur;
     errorMessage: string;
 
-    constructor(private fb: FormBuilder, private userService: UserService, private router: Router) {
+    constructor(private fb: FormBuilder, private userService: AuthentificationService, private router: Router) {
     }
 
     submitForm(): void {
