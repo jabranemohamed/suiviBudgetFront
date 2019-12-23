@@ -58,7 +58,7 @@ export const ROUTES: SideNavInterface[] = [
                 submenu: []
             },
             {
-                path: '/apps/mail',
+                path: '/components/admin/fileUpload',
                 title: 'Chargement Fichier',
                 iconType: 'nzIcon',
                 icon: 'upload',
