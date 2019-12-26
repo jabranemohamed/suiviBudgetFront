@@ -1,24 +1,69 @@
 <nz-card>
   <h4>Rechercher un Budget</h4>
   <div class="m-t-25">
-    <form nz-form  [nzLayout]="'inline'"   [formGroup]="budgetValidationForm" (ngSubmit)="registerSubmitForm()">
+    <form nz-form [nzLayout]="'inline'" [formGroup]="budgetValidationForm" (ngSubmit)="registerSubmitForm()">
 
       <nz-form-item>
-        <nz-form-label  nzRequired>Année</nz-form-label>
-        <nz-form-control >
-            <nz-year-picker [(ngModel)]="datePicker"  nzPlaceHolder="Choisie une année"></nz-year-picker>
+        <nz-form-label nzRequired>Année</nz-form-label>
+        <nz-form-control>
+          <nz-year-picker formControlName="datePicker" nzPlaceHolder="Choisie une année"></nz-year-picker>
+          <nz-form-explain
+            *ngIf="budgetValidationForm.get('datePicker').dirty && budgetValidationForm.get('datePicker').errors">
+            Choisissez une année!
+          </nz-form-explain>
         </nz-form-control>
       </nz-form-item>
 
       <nz-form-item>
-        <nz-form-label  nzRequired>Code UL</nz-form-label>
-        <nz-form-control >
-          <input formControlName="codeUL" nz-input placeholder="Code UL"/>
+        <nz-form-label nzRequired>Code UL</nz-form-label>
+        <nz-form-control>
+          <input formControlName="codeUL" nz-input required placeholder="Code UL"/>
+          <nz-form-explain
+            *ngIf="budgetValidationForm.get('codeUL').dirty && budgetValidationForm.get('codeUL').errors">Entrer un code
+            d'unité Local!
+          </nz-form-explain>
         </nz-form-control>
       </nz-form-item>
 
       <button nz-button nzType="primary"><i nz-icon nzType="search"></i>Search</button>
 
     </form>
+  </div>
+
+  <div *ngIf="noDataFoundMessageDisplay" style="text-align: center;">
+    <br><br><br>
+    <i nz-icon nzType="meh" style="font-size: 20px;color: #c82829"></i>
+    <p>Aucun Resultat n'est retrouver !</p>
+  </div>
+
+  <br><br><br>
+  <div *ngIf="dataFound">
+    <nz-table #ordersListTable [nzData]="displayData"
+              (nzCurrentPageDataChange)="currentPageDataChange($event)"
+              (nzPageIndexChange)="refreshStatus()"
+              (nzPageSizeChange)="refreshStatus()">
+      <thead (nzSortChange)="sort($event)" nzSingleSort>
+      <tr>
+        <th nzShowSort nzSortKey="id">Grande Activité</th>
+        <th nzShowSort nzSortKey="libelle">Activité</th>
+        <th nzShowSort nzSortKey="description">Budget Notifié</th>
+        <th nzShowSort nzSortKey="description">Estimé1</th>
+        <th nzShowSort nzSortKey="description">Estimé2</th>
+        <th nzShowSort nzSortKey="description">Estimé3</th>
+        <th nzShowSort nzSortKey="description">Estimé4</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of ordersListTable.data | search:'name':search as count ;  let i=index">
+        <td>#{{item.grandeActivite}}</td>
+        <td>{{item.activite}}</td>
+        <td>{{item.budget_notifie}}</td>
+        <td>{{item.estime1}}</td>
+        <td>{{item.estime2}}</td>
+        <td>{{item.estime3}}</td>
+        <td>{{item.estime4}}</td>
+      </tr>
+      </tbody>
+    </nz-table>
   </div>
 </nz-card>
