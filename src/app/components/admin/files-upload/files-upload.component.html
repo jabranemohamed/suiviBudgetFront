@@ -1,96 +1,29 @@
 <nz-card>
-  <table class="product-info-table m-t-20">
-    <tr>
-      <td>
+  <form [formGroup]="uploadValidationForm">
+    <table class="product-info-table m-t-20">
 
-        <label nzValue="Rôle">
-          <span class="m-l-10">Rôle  </span>
-        </label>
-      </td>
-      <td>
-        <div class="m-t-25">
-          <nz-upload nzName="Rôle" file [nzFileType]="csv" nzAction="https://jsonplaceholder.typicode.com/posts/">
+      <tr *ngFor="let item of displayData">
+        <td>
 
-            <button nz-button nzType="primary" nzShape="round">
-              <i nz-icon nzType="upload"></i><span>Téléchargement</span>
-            </button>
-          </nz-upload>
-        </div>
-      </td>
+          <label>
+            <span class="m-l-10">{{item}}</span>
+          </label>
+        </td>
+        <td>
+          <div class="m-t-25">
+            <nz-upload nzName="{{item}}" #file
+                       [nzFileType]="'text/csv'"
+                       [nzCustomRequest]="customReq">
+              <button nz-button nzType="primary" nz-tooltip nzTitle="Séléctioné un fichier CSV" nzShape="round">
+                <i nz-icon nzType="upload"></i><span>Téléchargement</span>
+              </button>
+            </nz-upload>
+          </div>
+        </td>
 
-    </tr>
-
-    <tr>
-      <td>
-        <label nzValue="User">
-          <span class="m-l-10">User  </span>
-        </label>
-      </td>
-      <td>
-        <div class="m-t-25">
-          <nz-upload nzName="User" file [nzFileType]="csv" nzAction="https://jsonplaceholder.typicode.com/posts/">
-            <button nz-button nzType="primary" nzShape="round">
-              <i nz-icon nzType="upload"></i><span>Téléchargement</span>
-            </button>
-          </nz-upload>
-        </div>
-      </td>
-
-    </tr>
-
-    <tr>
-      <td>
-        <label nzValue="Centre">
-          <span class="m-l-10">Centre  </span>
-        </label>
-      </td>
-      <td>
-        <div class="m-t-25">
-          <nz-upload nzName="Centre" file [nzFileType]="csv" nzAction="https://jsonplaceholder.typicode.com/posts/">
-            <button nz-button nzType="primary" nzShape="round">
-              <i nz-icon nzType="upload"></i><span>Téléchargement</span>
-            </button>
-          </nz-upload>
-        </div>
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        <label nzValue="Budget">
-          <span class="m-l-10">Budget  </span>
-        </label>
-      </td>
-      <td>
-        <div class="m-t-25">
-          <nz-upload nzName="Budget" file [nzFileType]="csv" nzAction="https://jsonplaceholder.typicode.com/posts/">
-            <button nz-button nzType="primary" nzShape="round">
-              <i nz-icon nzType="upload"></i><span>Téléchargement</span>
-            </button>
-          </nz-upload>
-        </div>
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        <label nzValue="Commande">
-          <span class="m-l-10">Commande  </span>
-        </label>
-      </td>
-      <td>
-        <div class="m-t-25">
-          <nz-upload nzName="Commande" file [nzFileType]="csv" nzAction="https://jsonplaceholder.typicode.com/posts/">
-            <button nz-button nzType="primary" nzShape="round">
-              <i nz-icon nzType="upload"></i><span>Téléchargement</span>
-            </button>
-          </nz-upload>
-        </div>
-      </td>
-    </tr>
-
-  </table>
-
+      </tr>
+    </table>
+  </form>
 </nz-card>
 
 

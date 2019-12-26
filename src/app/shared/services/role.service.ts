@@ -19,7 +19,6 @@ export class RoleService {
   }
 
   public findAllRoles(): Observable<any> {
-    console.log(this.headers)
     return this.http.get(this.API_URL + "roles" , {headers: this.headers});
   }
 }
