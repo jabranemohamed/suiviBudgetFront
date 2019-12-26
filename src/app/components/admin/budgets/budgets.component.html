@@ -55,7 +55,7 @@
       </thead>
       <tbody>
       <tr *ngFor="let item of ordersListTable.data | search:'name':search as count ;  let i=index">
-        <td>#{{item.grandeActivite}}</td>
+        <td>{{item.grandeActivite}}</td>
         <td>{{item.activite}}</td>
         <td>{{item.budget_notifie}}</td>
         <td>{{item.estime1}}</td>
