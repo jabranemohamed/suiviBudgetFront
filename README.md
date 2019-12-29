@@ -30,5 +30,7 @@ Toute les services utilisées sont sous src/app/shared/services.
 L'adresse de serveur et de l'API sont dans le fichier:src/environments/environment.ts et src/environments/environment.prod.ts
 configurer le avec l'adresse de votre serveur.
 
+Executer la commande suivante:  ng serve -o 
+
 # Contributors ##
 [JABRANE MOHAMED](https://www.linkedin.com/in/mohamedhj/)
