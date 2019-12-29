@@ -18,3 +18,7 @@
 4. [Structure Application](#Structure-Application)
 5. [Executer application localement](#Executer-application-localement)
 8. [Contribuer](#Contribuer)
+
+## Structure Application ##
+<img src="https://github.com/jabranemohamed/suiviBudgetFront/blob/master/docs/images/project-structure.png" alt="project structure">
+ 
