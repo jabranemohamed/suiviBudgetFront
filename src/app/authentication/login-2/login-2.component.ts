@@ -20,10 +20,10 @@ export class Login2Component implements OnInit {
 
     submitForm(): void {
         this.user = new Utilisateur();
-        this.user.matricule = this.loginForm.get('userName').value;
+        this.user.nom = this.loginForm.get('userName').value;
+        this.user.username = this.loginForm.get('userName').value;
         this.user.password = this.loginForm.get('password').value;
         this.userService.login(this.user).subscribe(data => {
-            console.log(data);
             this.router.navigate(['/dashboard/default']);
           }, err => {
             this.errorMessage = 'Erreur lors de le login. Utilisateur non retrouver';

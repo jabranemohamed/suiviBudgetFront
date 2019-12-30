@@ -36,15 +36,20 @@ export class AuthentificationService {
 
 
   login(utilisateur: Utilisateur): Observable<any> {
-    let mat = utilisateur.matricule;
-    let password = utilisateur.password
-    return this.http.post<any>(this.API_URL + 'utilisateurs/login', {},
-      {params: new HttpParams().set('username', mat).append('password',password)}).pipe(
+
+    const headers = new HttpHeaders(
+      utilisateur ? {
+        authorization:'Basic ' + btoa(utilisateur.username + ':' + utilisateur.password)
+      } : {}
+    );
+
+    return this.http.get<any>(this.API_URL + 'utilisateurs/login', {headers:headers}).pipe(
       map(response =>{
         if(response){
-          sessionStorage.setItem('currentUser',mat);
+          sessionStorage.setItem('currentUser',utilisateur.username );
           let tokenStr= response.token;
           sessionStorage.setItem('token', tokenStr);
+          sessionStorage.setItem('isLoggedin', 'true');
           this.currentUserSubject.next(response);
           return response;
         }
@@ -52,14 +57,19 @@ export class AuthentificationService {
     );
   }
 
+  getJwtToken():any{
+    return sessionStorage.getItem('token');
+  }
+
   logOut():void {
         localStorage.removeItem('currentUser');
         localStorage.removeItem('token');
+        localStorage.removeItem('isLoggedin');
         this.currentUserSubject.next(null);
   }
 
   register(user: Utilisateur): Observable<any> {
-    return this.http.post(this.API_URL + "utilisateurs/registration", JSON.stringify(user),
+    return this.http.post(this.API_URL + "utilisateurs/signup", JSON.stringify(user),
   {headers: {"Content-Type":"application/json; charset=UTF-8"}});
   }
 

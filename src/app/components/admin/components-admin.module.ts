@@ -5,9 +5,7 @@ import {SharedModule} from '../../shared/shared.module';
 import {HighlightModule} from 'ngx-highlightjs';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 import {TableService} from "../../shared/services/table.service";
-
 import {ComponentsAdminRoutingModule} from "./components-admin-routing.module";
-
 
 import {RandomUserService} from '../../shared/services/random-user.service';
 import {BudgetsComponent} from "./budgets/budgets.component";
@@ -17,18 +15,19 @@ import {RolesComponent} from "./roles/roles.component";
 import {UtilisateursComponent} from "./utilisateurs/utilisateurs.component";
 import {DatePickerComponent} from "../data-entry/date-picker/date-picker.component";
 import {TimePickerComponent} from "../data-entry/time-picker/time-picker.component";
+import {AuthGuard} from "../../shared/guard/auth.guard";
 
 @NgModule({
-    imports: [
-        CommonModule,
-        SharedModule,
-        FormsModule,
-        HighlightModule,
-        ComponentsAdminRoutingModule,
-        InfiniteScrollModule,
-        ReactiveFormsModule,
+  imports: [
+    CommonModule,
+    SharedModule,
+    FormsModule,
+    HighlightModule,
+    ComponentsAdminRoutingModule,
+    InfiniteScrollModule,
+    ReactiveFormsModule,
 
-    ],
+  ],
   exports: [],
   declarations: [
     BudgetsComponent,
@@ -40,7 +39,8 @@ import {TimePickerComponent} from "../data-entry/time-picker/time-picker.compone
     TimePickerComponent
   ],
   providers: [RandomUserService,
-             TableService],
+    TableService,
+    AuthGuard],
 })
 
 export class ComponentsAdminModule {

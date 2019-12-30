@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-
+import {AuthGuard} from "../guard/auth.guard";
 
 export const CommonLayout_ROUTES: Routes = [
 
@@ -39,7 +39,8 @@ export const CommonLayout_ROUTES: Routes = [
             },
             {
               path: '',
-              loadChildren: () => import('../../components/admin/components-admin.module').then(m => m.ComponentsAdminModule)
+              loadChildren: () => import('../../components/admin/components-admin.module').then(m => m.ComponentsAdminModule),
+              canActivate: [AuthGuard]
             },
             {
                 path: '',
