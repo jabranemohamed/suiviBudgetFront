@@ -8,7 +8,6 @@ export class AuthGuard implements CanActivate {
 
   canActivate() {
     let item = sessionStorage.getItem('isLoggedin');
-    console.log("ITEM"+item)
     if (item) {
       return true;
     }
