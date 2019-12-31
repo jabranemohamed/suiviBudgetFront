@@ -1,0 +1,40 @@
+<nz-card>
+  <h4>Rechercher une Commande</h4>
+  <div class="m-t-25">
+    <form nz-form [nzLayout]="'inline'" [formGroup]="commandeValidationForm" (ngSubmit)="registerSubmitForm()">
+
+      <nz-form-item>
+        <nz-form-label nzRequired>Année</nz-form-label>
+        <nz-form-control>
+          <nz-year-picker formControlName="datePicker" nzPlaceHolder="Choisie une année"></nz-year-picker>
+          <nz-form-explain
+            *ngIf="commandeValidationForm.get('datePicker').dirty && commandeValidationForm.get('datePicker').errors">
+            Choisissez une année!
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzRequired>Code UL</nz-form-label>
+        <nz-form-control>
+          <input formControlName="codeUL" nz-input required placeholder="Code UL"/>
+          <nz-form-explain
+            *ngIf="commandeValidationForm.get('codeUL').dirty && commandeValidationForm.get('codeUL').errors">Entrer un code
+            d'unité Local!
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+
+      <button nz-button nzType="primary"><i nz-icon nzType="search"></i>Search</button>
+
+    </form>
+  </div>
+
+  <div *ngIf="noDataFoundMessageDisplay" style="text-align: center;">
+    <br><br><br>
+    <i nz-icon nzType="meh" style="font-size: 20px;color: #c82829"></i>
+    <p>Aucun Resultat n'est retrouver !</p>
+  </div>
+
+
+</nz-card>

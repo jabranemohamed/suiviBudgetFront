@@ -5,6 +5,7 @@ import {CentresComponent} from "./centres/centres.component";
 import {RolesComponent} from "./roles/roles.component";
 import {UtilisateursComponent} from "./utilisateurs/utilisateurs.component";
 import {FilesUploadComponent} from "./files-upload/files-upload.component";
+import {CommandesComponent} from "./commandes/commandes.component";
 
 const routes: Routes = [
   {
@@ -51,6 +52,13 @@ const routes: Routes = [
         component: FilesUploadComponent,
         data: {
           title: 'Chargement Fichiers'
+        }
+      },
+      {
+        path: 'commandes',
+        component: CommandesComponent,
+        data: {
+          title: 'Suivie des Commandes'
         }
       }
     ]

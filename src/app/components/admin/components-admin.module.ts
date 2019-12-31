@@ -16,6 +16,7 @@ import {UtilisateursComponent} from "./utilisateurs/utilisateurs.component";
 import {DatePickerComponent} from "../data-entry/date-picker/date-picker.component";
 import {TimePickerComponent} from "../data-entry/time-picker/time-picker.component";
 import {AuthGuard} from "../../shared/guard/auth.guard";
+import { CommandesComponent } from './commandes/commandes.component';
 
 @NgModule({
   imports: [
@@ -36,7 +37,8 @@ import {AuthGuard} from "../../shared/guard/auth.guard";
     RolesComponent,
     UtilisateursComponent,
     DatePickerComponent,
-    TimePickerComponent
+    TimePickerComponent,
+    CommandesComponent
   ],
   providers: [RandomUserService,
     TableService,

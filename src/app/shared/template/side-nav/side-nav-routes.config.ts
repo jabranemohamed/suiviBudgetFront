@@ -75,7 +75,7 @@ export const ROUTES: SideNavInterface[] = [
         icon: 'pie-chart',
         submenu: [
             {
-                path: '/charts/chartjs',
+                path: '/components/admin/commandes',
                 title: 'List des Commandes',
                 iconType: 'nzIcon',
                 icon: 'table',
