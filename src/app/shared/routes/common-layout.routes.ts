@@ -35,36 +35,36 @@ export const CommonLayout_ROUTES: Routes = [
             {
                 path: '',
                 redirectTo: '/dashboard',
-                pathMatch: 'full'
+                pathMatch: 'full',
+                canActivate: [AuthGuard]
             },
             {
               path: '',
-              loadChildren: () => import('../../components/admin/components-admin.module').then(m => m.ComponentsAdminModule),
-              canActivate: [AuthGuard]
+              loadChildren: () => import('../../components/admin/components-admin.module').then(m => m.ComponentsAdminModule),canActivate: [AuthGuard]
             },
             {
                 path: '',
-                loadChildren: () => import('../../components/general/components-general.module').then(m => m.ComponentsGeneralModule)
+                loadChildren: () => import('../../components/general/components-general.module').then(m => m.ComponentsGeneralModule),canActivate: [AuthGuard]
             },
             {
                 path: '',
-                loadChildren: () => import('../../components/navigation/components-navigation.module').then(m => m.ComponentsNavigationModule)
+                loadChildren: () => import('../../components/navigation/components-navigation.module').then(m => m.ComponentsNavigationModule),canActivate: [AuthGuard]
             },
             {
                 path: '',
-                loadChildren: () => import('../../components/data-entry/components-data-entry.module').then(m => m.ComponentsDataEntryModule)
+                loadChildren: () => import('../../components/data-entry/components-data-entry.module').then(m => m.ComponentsDataEntryModule),canActivate: [AuthGuard]
             },
             {
                 path: '',
-                loadChildren: () => import('../../components/data-display/components-data-display.module').then(m => m.ComponentsDataDisplayModule)
+                loadChildren: () => import('../../components/data-display/components-data-display.module').then(m => m.ComponentsDataDisplayModule),canActivate: [AuthGuard]
             },
             {
                 path: '',
-                loadChildren: () => import('../../components/feedback/components-feedback.module').then(m => m.ComponentsFeedbackModule)
+                loadChildren: () => import('../../components/feedback/components-feedback.module').then(m => m.ComponentsFeedbackModule),canActivate: [AuthGuard]
             },
             {
                 path: '',
-                loadChildren: () => import('../../components/others/components-others.module').then(m => m.ComponentsOthersModule)
+                loadChildren: () => import('../../components/others/components-others.module').then(m => m.ComponentsOthersModule),canActivate: [AuthGuard]
             }
         ],
         data: {

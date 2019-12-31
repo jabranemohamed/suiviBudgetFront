@@ -22,7 +22,6 @@ export class FileUploaderService {
   }
 
   public uploadFileToServer(file:File, type:String): Observable<any> {
-    console.log("Enter her");
     const formData = new FormData();
     var call_URL = this.UPLOAD_API_URL + type;
     // @ts-ignore

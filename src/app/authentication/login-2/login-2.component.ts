@@ -15,7 +15,7 @@ export class Login2Component implements OnInit {
     user: Utilisateur;
     errorMessage: string;
 
-    constructor(private fb: FormBuilder, private userService: AuthentificationService, private router: Router) {
+    constructor(public fb: FormBuilder, public userService: AuthentificationService, private router: Router) {
     }
 
     submitForm(): void {
@@ -31,7 +31,7 @@ export class Login2Component implements OnInit {
     }
 
     ngOnInit(): void {
-      var currentUserExist = localStorage.getItem('currentUser');
+      var currentUserExist = sessionStorage.getItem('currentUser');
         if (currentUserExist && this.userService.currentUserValue) {
             this.router.navigate(['/dashboard/default']);
             return;

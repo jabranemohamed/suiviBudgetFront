@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import { environment } from '../../../environments/environment';
+import {environment} from '../../../environments/environment';
 import {Utilisateur} from '../interfaces/utilisateur';
-import set = Reflect.set;
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +16,8 @@ export class AuthentificationService {
   headers: HttpHeaders;
   public API_URL = environment.baseUrl;
 
-  constructor(private http: HttpClient) {
-    this.currentUserSubject = new BehaviorSubject<Utilisateur>(JSON.parse(localStorage.getItem('currentUser')));
+  constructor(private http: HttpClient, private router: Router) {
+    this.currentUserSubject = new BehaviorSubject<Utilisateur>(JSON.parse(sessionStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
@@ -31,9 +31,6 @@ export class AuthentificationService {
   public get currentUserValue(): Utilisateur {
     return this.currentUserSubject.value;
   }
-
-//{username:mat,password:password}}
-
 
   login(utilisateur: Utilisateur): Observable<any> {
 
@@ -62,10 +59,12 @@ export class AuthentificationService {
   }
 
   logOut():void {
-        localStorage.removeItem('currentUser');
-        localStorage.removeItem('token');
-        localStorage.removeItem('isLoggedin');
+    console.log("enter logout");
+        sessionStorage.removeItem('currentUser');
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('isLoggedin');
         this.currentUserSubject.next(null);
+        this.router.navigate(['/authentication/login-2']);
   }
 
   register(user: Utilisateur): Observable<any> {

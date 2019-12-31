@@ -55,9 +55,7 @@ export class FilesUploadComponent implements OnInit {
   onFileChange(event: Event, role: string) {
     // @ts-ignore
     const file = event.target.files[0];
-   console.log(file)
     this.fileUploaderService.uploadFileToServer(file,role).subscribe(data => {
-      console.log("hallo world")
     });
   }
 }

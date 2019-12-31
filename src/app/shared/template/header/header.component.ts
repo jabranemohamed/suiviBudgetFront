@@ -16,7 +16,7 @@ export class HeaderComponent{
     isFolded : boolean;
     isExpand : boolean;
 
-    constructor(private themeService: ThemeConstantService, private userService: AuthentificationService, private router: Router) {
+    constructor(private themeService: ThemeConstantService, private authentificationService: AuthentificationService, private router: Router) {
     }
 
     ngOnInit(): void {
@@ -37,7 +37,7 @@ export class HeaderComponent{
     }
 
   logOut() {
-      this.router.navigate(['/authentication/login-2']);
+    this.authentificationService.logOut();
   }
 
     searchToggle(): void {
