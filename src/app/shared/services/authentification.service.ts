@@ -59,12 +59,15 @@ export class AuthentificationService {
   }
 
   logOut():void {
-    console.log("enter logout");
         sessionStorage.removeItem('currentUser');
         sessionStorage.removeItem('token');
         sessionStorage.removeItem('isLoggedin');
         this.currentUserSubject.next(null);
         this.router.navigate(['/authentication/login-2']);
+  }
+
+  getCurrentUser():any {
+    return sessionStorage.getItem('currentUser');
   }
 
   register(user: Utilisateur): Observable<any> {

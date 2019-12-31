@@ -15,6 +15,7 @@ export class HeaderComponent{
     quickViewVisible : boolean = false;
     isFolded : boolean;
     isExpand : boolean;
+    currentUser:String
 
     constructor(private themeService: ThemeConstantService, private authentificationService: AuthentificationService, private router: Router) {
     }
@@ -22,6 +23,7 @@ export class HeaderComponent{
     ngOnInit(): void {
         this.themeService.isMenuFoldedChanges.subscribe(isFolded => this.isFolded = isFolded);
         this.themeService.isExpandChanges.subscribe(isExpand => this.isExpand = isExpand);
+        this.currentUser = this.authentificationService.getCurrentUser()
     }
 
     toggleFold() {
