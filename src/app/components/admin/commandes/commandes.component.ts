@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {CommandeService} from "../../../shared/services/commande.service";
 
 @Component({
   selector: 'app-commandes',
@@ -17,8 +18,12 @@ export class CommandesComponent implements OnInit {
   allChecked: boolean = false;
   indeterminate: boolean = false;
   search: any;
+  tableEditableCelli = 1;
+  tableEditableCellEditCache = {};
+  tableEditableCellDataSet;
 
-  constructor(private resgisterFB: FormBuilder  ) { }
+  constructor(private resgisterFB: FormBuilder, private commandService: CommandeService) {
+  }
 
   ngOnInit() {
     this.dataFound = false;
@@ -37,6 +42,42 @@ export class CommandesComponent implements OnInit {
     let cu = this.commandeValidationForm.get('codeUL').value;
     let dp = this.commandeValidationForm.get('datePicker').value;
     let fullYear = dp.getFullYear();
+    this.commandService.findAllCommandePerYearAndCodeUnit(fullYear, cu).subscribe(data => {
+      this.tableEditableCellDataSet = data.content;
+      if (this.tableEditableCellDataSet == null || this.tableEditableCellDataSet.length == 0) {
+        this.noDataFoundMessageDisplay = true
+      } else {
+        this.noDataFoundMessageDisplay = false;
+        this.dataFound = true;
+      }
+    });
+
+  }
+
+
+  tableEditableCellEditDeleteRow(i: string): void {
+    const dataSet = this.tableEditableCellDataSet.filter(d => d.key !== i);
+    this.tableEditableCellDataSet = dataSet;
+  }
+
+  tableEditableCellEditStartEdit(key: string): void {
+    this.tableEditableCellEditCache[ key ].edit = true;
+  }
+
+  tableEditableCellEditFinishEdit(key: string): void {
+    this.tableEditableCellEditCache[ key ].edit = false;
+    this.tableEditableCellDataSet.find(item => item.key === key).name = this.tableEditableCellEditCache[ key ].name;
+  }
+
+  tableEditableCellUpdateEditCache(): void {
+    this.tableEditableCellDataSet.forEach(item => {
+      if (!this.tableEditableCellEditCache[ item.key ]) {
+        this.tableEditableCellEditCache[ item.key ] = {
+          edit: false,
+          name: item.name
+        };
+      }
+    });
   }
 
 }

@@ -18,7 +18,6 @@ export class CentreService {
   }
 
   public findAllCentre(): Observable<any> {
-    console.log(this.headers)
     return this.http.get(this.API_URL + "centres", {headers: this.headers});
   }
 }
