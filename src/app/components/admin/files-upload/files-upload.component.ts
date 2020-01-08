@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FileUploaderService} from "../../../shared/services/file-uploader.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UploadXHRArgs} from "ng-zorro-antd";
-import {HttpClient, HttpEvent, HttpEventType, HttpRequest, HttpResponse} from "@angular/common/http";
+import {HttpClient, HttpEvent, HttpEventType, HttpHeaders, HttpRequest, HttpResponse} from "@angular/common/http";
 import {environment} from "../../../../environments/environment";
 
 @Component({
@@ -17,8 +17,13 @@ export class FilesUploadComponent implements OnInit {
   public API_URL = environment.baseUrl;
   public UPLOAD_API_URL = this.API_URL + 'upload/';
   displayData = ['Role','Utilisateur','Centre','Budget','Commande'];
+  token: String;
+  headers: HttpHeaders;
 
   constructor(private fb: FormBuilder,public fileUploaderService: FileUploaderService,private http: HttpClient) {
+      this.token = sessionStorage.getItem('token');
+      this.headers = new HttpHeaders();
+      this.headers = this.headers.append('Authorization', 'Bearer ' + this.token);
   }
 
   ngOnInit() {
@@ -34,6 +39,7 @@ export class FilesUploadComponent implements OnInit {
     formData.append('file', item.file as any);
     formData.append('id', '1000');
     const req = new HttpRequest('POST', this.UPLOAD_API_URL+name, formData, {
+      headers : this.headers,
       reportProgress : true,
       withCredentials: true
     });
@@ -52,10 +58,4 @@ export class FilesUploadComponent implements OnInit {
   }
 
 
-  onFileChange(event: Event, role: string) {
-    // @ts-ignore
-    const file = event.target.files[0];
-    this.fileUploaderService.uploadFileToServer(file,role).subscribe(data => {
-    });
-  }
 }

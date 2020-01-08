@@ -19,7 +19,8 @@
         <nz-form-control>
           <input formControlName="codeUL" nz-input required placeholder="Code UL"/>
           <nz-form-explain
-            *ngIf="commandeValidationForm.get('codeUL').dirty && commandeValidationForm.get('codeUL').errors">Entrer un code
+            *ngIf="commandeValidationForm.get('codeUL').dirty && commandeValidationForm.get('codeUL').errors">Entrer un
+            code
             d'unité Local!
           </nz-form-explain>
         </nz-form-control>
@@ -38,7 +39,8 @@
 
   <br><br><br>
   <div *ngIf="dataFound">
-    <nz-table       #editCellTable  nzBordered  [nzScroll]="{ x : '500px' }"   [nzPageSize]="50"     [nzData]="tableEditableCellDataSet">
+    <nz-table #editCellTable nzBordered [nzScroll]="{ x : '500px' }" [nzPageSize]="50"
+              [nzData]="tableEditableCellDataSet">
       <thead>
       <tr>
         <th>ID_dist_cmd</th>
@@ -84,13 +86,79 @@
         <td>{{data.fournisseur}}</td>
         <td>{{data.description_commande}}</td>
         <td>{{data.moe_prescripteur}}</td>
-        <td>{{data.budget_grande_activite}}</td>
-        <td>{{data.budget_activite}}</td>
-        <td>{{data.budget_notifie}}</td>
-        <td>{{data.bud_budgget_estime1}}</td>
-        <td>{{data.bud_budgget_estime2}}</td>
-        <td>{{data.bud_budgget_estime3}}</td>
-        <td>{{data.bud_budgget_estime4}}</td>
+        <td>
+          <nz-select style="width: 120px;" class="m-r-10" [(ngModel)]="data.budget_grande_activite" nzAllowClear
+                     nzPlaceHolder="Selectioner"
+                     (ngModelChange)="showActivity(data.id_dist_cmd,data.budget_grande_activite)">
+            <nz-option *ngFor="let oneGrandBudget of allGrandBudget" nzValue="{{oneGrandBudget}}"
+                       nzLabel="{{oneGrandBudget}}"></nz-option>
+          </nz-select>
+        </td>
+
+        <td>
+          <nz-select style="width: 120px;" class="m-r-10" [(ngModel)]="data.budget_activite" nzAllowClear
+                     nzPlaceHolder="Selectioner"
+                     (ngModelChange)="showBudgetInfos(data.budget_grande_activite,data.budget_activite,data)">
+            <nz-option *ngFor="let oneGrandBudget of allBudgets[data.id_dist_cmd]" nzValue="{{oneGrandBudget}}"
+                       nzLabel="{{oneGrandBudget}}"></nz-option>
+          </nz-select>
+
+        </td>
+        <td>
+          <div class="editable-cell">
+            <div class="editable-cell-text-wrapper">
+              <ng-container>
+                <input type="text" [(ngModel)]="data.budget_notifie" size="5">
+                <i nz-icon nzType="check" class="editable-cell-icon-check"></i>
+              </ng-container>
+            </div>
+          </div>
+        </td>
+
+        <td>
+          <div class="editable-cell">
+            <div class="editable-cell-text-wrapper">
+              <ng-container>
+                <input type="text" [(ngModel)]="data.bud_budgget_estime1" size="5">
+                <i nz-icon nzType="check" class="editable-cell-icon-check"></i>
+              </ng-container>
+            </div>
+          </div>
+        </td>
+
+        <td>
+          <div class="editable-cell">
+            <div class="editable-cell-text-wrapper">
+              <ng-container>
+                <input type="text" [(ngModel)]="data.bud_budgget_estime2" size="5">
+                <i nz-icon nzType="check" class="editable-cell-icon-check"></i>
+              </ng-container>
+            </div>
+          </div>
+        </td>
+
+        <td>
+          <div class="editable-cell">
+            <div class="editable-cell-text-wrapper">
+              <ng-container>
+                <input type="text" [(ngModel)]="data.bud_budgget_estime3" size="5">
+                <i nz-icon nzType="check" class="editable-cell-icon-check"></i>
+              </ng-container>
+            </div>
+          </div>
+        </td>
+
+        <td>
+          <div class="editable-cell">
+            <div class="editable-cell-text-wrapper">
+              <ng-container>
+                <input type="text" [(ngModel)]="data.bud_budgget_estime4" size="5">
+                <i nz-icon nzType="check" class="editable-cell-icon-check"></i>
+              </ng-container>
+            </div>
+          </div>
+        </td>
+
         <td>{{data.qte_engagee_annee_en_cours}}</td>
         <td>{{data.reste_a_receptionner}}</td>
         <td>{{data.quantite_commandee}}</td>
@@ -116,5 +184,5 @@
     </nz-table>
   </div>
 
-
+  <button *ngIf="dataFound" nz-button class="login-form-button" [nzType]="'primary'" (click)="enregistrer()">Enregistrer</button>
 </nz-card>

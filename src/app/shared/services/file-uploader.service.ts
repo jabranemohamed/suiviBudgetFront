@@ -26,7 +26,6 @@ export class FileUploaderService {
     var call_URL = this.UPLOAD_API_URL + type;
     // @ts-ignore
     formData.append('file', file);
-    console.log(formData)
     const req = new HttpRequest('POST', call_URL, formData, {headers: this.headers});
     return this.http.request(req);
 

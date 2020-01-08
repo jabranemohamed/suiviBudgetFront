@@ -21,4 +21,8 @@ export class BudgetService {
   findAllBudgetPerYearAndCodeUnit(fullYear: number, cu: any): Observable<any> {
     return this.http.get(this.API_URL + "budgets/"+cu+"/"+fullYear , {headers: this.headers});
   }
+
+  findBudgetInfos(grandActivite: string, activite: string, fullYear: any, cu: any) {
+    return this.http.get(this.API_URL + "budget-infos/"+cu+"/"+fullYear+"/"+grandActivite+"/"+activite , {headers: this.headers});
+  }
 }

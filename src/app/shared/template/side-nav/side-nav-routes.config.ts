@@ -10,7 +10,7 @@ export const ROUTES: SideNavInterface[] = [
         submenu: [
             {
                 path: '/dashboard/default',
-                title: 'Default',
+                title: 'Statistique',
                 iconType: '',
                 icon: '',
                 iconTheme: '',
