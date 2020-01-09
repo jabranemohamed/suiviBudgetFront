@@ -14,7 +14,7 @@ export class BudgetsComponent implements OnInit {
   datePicker: any;
   codeUL: any;
   displayData = [];
-  dataFound: Boolean;
+  dataFound: boolean = false;
   noDataFoundMessageDisplay: Boolean;
   allChecked: boolean = false;
   indeterminate: boolean = false;
@@ -45,6 +45,7 @@ export class BudgetsComponent implements OnInit {
       this.displayData = data.content;
       if (this.displayData == null || this.displayData.length == 0) {
         this.noDataFoundMessageDisplay = true
+        this.dataFound = false;
       } else {
         this.noDataFoundMessageDisplay = false;
         this.dataFound = true;

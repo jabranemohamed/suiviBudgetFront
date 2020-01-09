@@ -4,17 +4,6 @@
     <form nz-form [nzLayout]="'inline'" [formGroup]="commandeValidationForm" (ngSubmit)="registerSubmitForm()">
 
       <nz-form-item>
-        <nz-form-label nzRequired>Année</nz-form-label>
-        <nz-form-control>
-          <nz-year-picker formControlName="datePicker" nzPlaceHolder="Choisie une année"></nz-year-picker>
-          <nz-form-explain
-            *ngIf="commandeValidationForm.get('datePicker').dirty && commandeValidationForm.get('datePicker').errors">
-            Choisissez une année!
-          </nz-form-explain>
-        </nz-form-control>
-      </nz-form-item>
-
-      <nz-form-item>
         <nz-form-label nzRequired>Code UL</nz-form-label>
         <nz-form-control>
           <input formControlName="codeUL" nz-input required placeholder="Code UL"/>
@@ -22,6 +11,17 @@
             *ngIf="commandeValidationForm.get('codeUL').dirty && commandeValidationForm.get('codeUL').errors">Entrer un
             code
             d'unité Local!
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzRequired>Année</nz-form-label>
+        <nz-form-control>
+          <nz-year-picker formControlName="datePicker" nzPlaceHolder="Choisie une année"></nz-year-picker>
+          <nz-form-explain
+            *ngIf="commandeValidationForm.get('datePicker').dirty && commandeValidationForm.get('datePicker').errors">
+            Choisissez une année!
           </nz-form-explain>
         </nz-form-control>
       </nz-form-item>
@@ -176,13 +176,42 @@
         <td>{{data.catgory}}</td>
         <td>{{data.marche}}</td>
         <td>{{data.desc_ligne_cmd}}</td>
-        <td>{{data.cmd_a_regulariser}}</td>
-        <td>{{data.cmd_regularisee}}</td>
-        <td>{{data.nouveau_segment7}}</td>
+        <td>
+          <div class="editable-cell">
+            <div class="editable-cell-text-wrapper">
+              <ng-container>
+                <input type="text" [(ngModel)]="data.cmd_a_regulariser" size="5">
+                <i nz-icon nzType="check" class="editable-cell-icon-check"></i>
+              </ng-container>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="editable-cell">
+            <div class="editable-cell-text-wrapper">
+              <ng-container>
+                <input type="text" [(ngModel)]="data.cmd_regularisee" size="5">
+                <i nz-icon nzType="check" class="editable-cell-icon-check"></i>
+              </ng-container>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="editable-cell">
+            <div class="editable-cell-text-wrapper">
+              <ng-container>
+                <input type="text" [(ngModel)]="data.nouveau_segment7" size="5">
+                <i nz-icon nzType="check" class="editable-cell-icon-check"></i>
+              </ng-container>
+            </div>
+          </div>
+        </td>
       </tr>
       </tbody>
     </nz-table>
   </div>
 
-  <button *ngIf="dataFound" nz-button class="login-form-button" [nzType]="'primary'" (click)="enregistrer()">Enregistrer</button>
+  <button *ngIf="dataFound" nz-button class="login-form-button" [nzType]="'primary'" (click)="enregistrer()">
+    Enregistrer
+  </button>
 </nz-card>

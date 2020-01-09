@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CommandeService} from "../../../shared/services/commande.service";
 import {BudgetService} from "../../../shared/services/budget.service";
+import {catchError} from "rxjs/operators";
+import {throwError} from "rxjs";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-commandes',
@@ -51,17 +54,21 @@ export class CommandesComponent implements OnInit {
       this.tableEditableCellDataSet = data.content;
       if (this.tableEditableCellDataSet == null || this.tableEditableCellDataSet.length == 0) {
         this.noDataFoundMessageDisplay = true
+        this.dataFound = false;
       } else {
         this.noDataFoundMessageDisplay = false;
         this.dataFound = true;
+
+        for (var key in this.tableEditableCellDataSet) {
+            var tt = this.tableEditableCellDataSet[key];
+            this.showActivity(tt.id_dist_cmd,tt.budget_grande_activite);
+        }
+
       }
     });
-
     this.commandService.findAllBudgetGrandeActivitePerYearAndCodeUnit(this.fullYear, this.cu).subscribe(data => {
-      this.allGrandBudget = data;
-    });
-
-
+        this.allGrandBudget = data;
+      });
   }
 
   tableEditableCellEditDeleteRow(i: string): void {
@@ -97,6 +104,7 @@ export class CommandesComponent implements OnInit {
   }
 
   showBudgetInfos(grandActivite: string, activite: string, dataRef: any) {
+    console.log("enter her showBudgetInfos");
     this.budgetService.findBudgetInfos(grandActivite, activite, this.fullYear, this.cu).subscribe(data => {
       // @ts-ignore
       dataRef.budget_notifie = data.budget_notifie;
@@ -108,9 +116,12 @@ export class CommandesComponent implements OnInit {
       dataRef.bud_budgget_estime3 = data.estime3;
       // @ts-ignore
       dataRef.bud_budgget_estime4 = data.estime4;
+
     });
   }
   enregistrer() {
-    this.commandService.saveCommandes(this.tableEditableCellDataSet);
+    this.commandService.saveCommandes(this.tableEditableCellDataSet).subscribe(data => {
+      this.registerSubmitForm();
+    });
   }
 }

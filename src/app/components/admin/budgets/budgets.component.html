@@ -4,23 +4,23 @@
     <form nz-form [nzLayout]="'inline'" [formGroup]="budgetValidationForm" (ngSubmit)="registerSubmitForm()">
 
       <nz-form-item>
-        <nz-form-label nzRequired>Année</nz-form-label>
-        <nz-form-control>
-          <nz-year-picker formControlName="datePicker" nzPlaceHolder="Choisie une année"></nz-year-picker>
-          <nz-form-explain
-            *ngIf="budgetValidationForm.get('datePicker').dirty && budgetValidationForm.get('datePicker').errors">
-            Choisissez une année!
-          </nz-form-explain>
-        </nz-form-control>
-      </nz-form-item>
-
-      <nz-form-item>
         <nz-form-label nzRequired>Code UL</nz-form-label>
         <nz-form-control>
           <input formControlName="codeUL" nz-input required placeholder="Code UL"/>
           <nz-form-explain
             *ngIf="budgetValidationForm.get('codeUL').dirty && budgetValidationForm.get('codeUL').errors">Entrer un code
             d'unité Local!
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzRequired>Année</nz-form-label>
+        <nz-form-control>
+          <nz-year-picker formControlName="datePicker" nzPlaceHolder="Choisie une année"></nz-year-picker>
+          <nz-form-explain
+            *ngIf="budgetValidationForm.get('datePicker').dirty && budgetValidationForm.get('datePicker').errors">
+            Choisissez une année!
           </nz-form-explain>
         </nz-form-control>
       </nz-form-item>
