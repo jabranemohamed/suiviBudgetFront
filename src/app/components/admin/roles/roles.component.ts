@@ -13,6 +13,9 @@ export class RolesComponent implements OnInit {
   indeterminate: boolean = false;
   search: any;
   displayData = [];
+  tableEditableRowi = 1;
+  tableEditableRowEditCache = {};
+  tableEditableRowDataSet = [];
 
   constructor(public roleService: RoleService, public tableSvc: TableService) {
   }
@@ -40,6 +43,32 @@ export class RolesComponent implements OnInit {
   sort(sortAttribute: any) {
     this.displayData = this.tableSvc.sort(sortAttribute, this.displayData);
   }
+  tableEditableRowStartEdit(key: string): void {
+    this.tableEditableRowEditCache[ key ].edit = true;
+  }
+
+  tableEditableRowCancelEdit(key: string): void {
+    this.tableEditableRowEditCache[ key ].edit = false;
+  }
+
+  tableEditableRowSaveEdit(key: string): void {
+    const index = this.displayData.findIndex(item => item.libelle === key);
+    Object.assign(this.displayData[ index ], this.tableEditableRowEditCache[ key ].data);
+
+    console.log(this.displayData[ index ])
+
+    this.tableEditableRowEditCache[ key ].edit = false;
+  }
+  tableEditableRowUpdateEditCache(): void {
+    this.displayData.forEach(item => {
+      if (!this.tableEditableRowEditCache[ item.libelle ]) {
+        this.tableEditableRowEditCache[ item.libelle ] = {
+          edit: false,
+          data: { ...item }
+        };
+      }
+    });
+  }
 
   checkAll(value: boolean): void {
     this.displayData.forEach(data => {
@@ -50,7 +79,8 @@ export class RolesComponent implements OnInit {
 
   findAllRole() {
     this.roleService.findAllRoles().subscribe(data => {
-      this.displayData = data.content;
+      this.displayData = data;
+      this.tableEditableRowUpdateEditCache();
     });
   }
 

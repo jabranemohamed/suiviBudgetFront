@@ -44,6 +44,7 @@ export class AuthentificationService {
       map(response =>{
         if(response){
           sessionStorage.setItem('currentUser',utilisateur.username );
+          sessionStorage.setItem('localUnit',response.localUnit.code );
           let tokenStr= response.token;
           sessionStorage.setItem('token', tokenStr);
           sessionStorage.setItem('isLoggedin', 'true');

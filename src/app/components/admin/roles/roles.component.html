@@ -14,13 +14,35 @@
       <th nzShowSort nzSortKey="id">ID</th>
       <th nzShowSort nzSortKey="libelle">Role</th>
       <th nzShowSort nzSortKey="description">Description</th>
+      <th>Action</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let item of ordersListTable.data | search:'name':search as count ;  let i=index">
       <td>#{{item.id}}</td>
       <td>{{item.libelle}}</td>
-      <td>{{item.description}}</td>
+      <td>
+        <ng-container *ngIf="!tableEditableRowEditCache[item.libelle].edit">
+          {{item.description}}
+        </ng-container>
+        <ng-container *ngIf="tableEditableRowEditCache[item.libelle].edit">
+          <input type="text" nz-input [(ngModel)]="tableEditableRowEditCache[item.libelle].data.description">
+        </ng-container>
+      </td>
+      <td>
+        <div>
+          <ng-container *ngIf="!tableEditableRowEditCache[item.libelle].edit">
+            <a (click)="tableEditableRowStartEdit(item.libelle)" class="m-r-5" nz-button nzType="default" nzGhost nzShape="circle" nz-tooltip nzTitle="Edit" nzPlacement="bottom">
+              <i nz-icon nzType="edit" theme="outline"></i>
+            </a>
+
+          </ng-container>
+          <ng-container *ngIf="tableEditableRowEditCache[item.libelle].edit">
+            <a class="m-r-10" (click)="tableEditableRowSaveEdit(item.libelle)">Save</a>
+            <a nz-popconfirm nzTitle="Voulez vous annuler ?" (nzOnConfirm)="tableEditableRowCancelEdit(item.libelle)">Cancel</a>
+          </ng-container>
+        </div>
+      </td>
     </tr>
     </tbody>
   </nz-table>

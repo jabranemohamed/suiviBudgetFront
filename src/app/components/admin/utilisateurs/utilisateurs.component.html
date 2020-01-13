@@ -17,7 +17,8 @@
       <th nzShowSort nzSortKey="prenom">Prénom</th>
       <th nzShowSort nzSortKey="role">Rôle</th>
       <th nzShowSort nzSortKey="localUnit">Code UL</th>
-      <th nzShowSort nzSortKey="status">statut (activé, désactivé)L</th>
+      <th nzShowSort nzSortKey="status">statut (activé, désactivé)</th>
+      <th nzShowSort nzSortKey="status">Actions</th>
     </tr>
     </thead>
     <tbody>
@@ -28,7 +29,12 @@
       <td>{{item.prenom}}</td>
       <td>{{item.role.libelle}}</td>
       <td>{{item.localUnit.code}}</td>
-      <td> <i nz-icon nzType="check" *ngIf="item.isActive" theme="outline"></i></td>
+      <td>
+           <i class="text-success" nz-icon nzType="check" *ngIf="item.isActive" theme="outline"></i>
+           <i class="text-danger" nz-icon nzType="close-circle" *ngIf="!item.isActive" theme="outline"></i>
+
+      </td>
+      <td><nz-switch nzSize="small" [ngModel]="true"></nz-switch></td>
     </tr>
     </tbody>
   </nz-table>

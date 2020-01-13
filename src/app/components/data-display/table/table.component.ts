@@ -12,17 +12,17 @@ declare var require: any
         .search-box {
             padding: 8px;
         }
-    
+
         .search-box input {
             width: 188px;
             margin-bottom: 8px;
             display: block;
         }
-    
+
         .search-box button {
             width: 90px;
         }
-    
+
         .search-button {
             margin-right: 8px;
         }
@@ -31,7 +31,7 @@ declare var require: any
 })
 
 export class TableComponent implements OnInit {
-    
+
     //Code Highlight
     tableBasicCode: string
     tableSelectionCode: string
@@ -206,14 +206,14 @@ export class TableComponent implements OnInit {
     tableCustomeSelectionAllChecked = false;
     tableCustomeSelectionDataSet: Array<{ name: string; age: number; address: string; checked: boolean }> = [];
     tableCustomeSelectionAllCheckedIndeterminate = false;
-    
+
     tableCustomeSelectionRefreshStatus(): void {
         const allChecked = this.tableCustomeSelectionDataSet.every(value => value.checked === true);
         const allUnChecked = this.tableCustomeSelectionDataSet.every(value => !value.checked);
         this.tableCustomeSelectionAllChecked = allChecked;
         this.tableCustomeSelectionAllCheckedIndeterminate = (!allChecked) && (!allUnChecked);
     }
-    
+
     tableCustomeSelectionCheckAll(value: boolean): void {
         this.tableCustomeSelectionDataSet.forEach(data => data.checked = value);
         this.tableCustomeSelectionRefreshStatus();
@@ -231,21 +231,21 @@ export class TableComponent implements OnInit {
     tableDefaultFilterSortValue = null;
     tableDefaultFilterListOfSearchName = [ 'Joe', 'London' ];  // You need to change it as well!
     tableDefaultFilterSearchAddress: string;
-    
+
     tableDefaultFilterDisplayData = [ ]; // You need to change it as well!
-    
+
     tableDefaultSort(sort: { key: string, value: string }): void {
         this.tableDefaultFilterSortName = sort.key;
         this.tableDefaultFilterSortValue = sort.value;
         this.tableDefaultFilterSearch();
     }
-    
+
     tableDefaultFilter(tableDefaultFilterListOfSearchName: string[], tableDefaultFilterSearchAddress: string): void {
         this.tableDefaultFilterListOfSearchName = tableDefaultFilterListOfSearchName;
         this.tableDefaultFilterSearchAddress = tableDefaultFilterSearchAddress;
         this.tableDefaultFilterSearch();
     }
-    
+
     tableDefaultFilterSearch(): void {
         /** filter data **/
         const filterFunc = item => (this.tableDefaultFilterSearchAddress ? item.address.indexOf(this.tableDefaultFilterSearchAddress) !== -1 : true) && (this.tableDefaultFilterListOfSearchName.length ? this.tableDefaultFilterListOfSearchName.some(name => item.name.indexOf(name) !== -1) : true);
@@ -270,21 +270,21 @@ export class TableComponent implements OnInit {
     tableFilterSortValue = null;
     tableFilterListOfSearchName = [];
     tableFilterSearchAddress: string;
-    
+
     tableFilterDisplayData = [ ...this.tableDataSet ];
-    
+
     tableFilterSort(sort: { key: string, value: string }): void {
         this.tableFilterSortName = sort.key;
         this.tableFilterSortValue = sort.value;
         this.tableFilterSearch();
     }
-    
+
     tableFilterFilter(tableFilterListOfSearchName: string[], tableFilterSearchAddress: string): void {
         this.tableFilterListOfSearchName = tableFilterListOfSearchName;
         this.tableFilterSearchAddress = tableFilterSearchAddress;
         this.tableFilterSearch();
     }
-    
+
     tableFilterSearch(): void {
         /** filter data **/
         const filterFunc = item => (this.tableFilterSearchAddress ? item.address.indexOf(this.tableFilterSearchAddress) !== -1 : true) && (this.tableFilterListOfSearchName.length ? this.tableFilterListOfSearchName.some(name => item.name.indexOf(name) !== -1) : true);
@@ -296,7 +296,7 @@ export class TableComponent implements OnInit {
             this.tableFilterDisplayData = data;
         }
     }
-    
+
     tableResetFilterSearchNameList = [];
     tableResetFilterSearchAddressList = [];
     tableResetFilterFilterNameList = [
@@ -314,7 +314,7 @@ export class TableComponent implements OnInit {
     };
     tableResetFilterSortName = null;
     tableResetFilterSortValue = null;
-    
+
     tableResetFilterDisplayData = [ ...this.tableDataSet ];
 
     tableResetFilterSort(tableResetFilterSortName: string, value: string): void {
@@ -377,7 +377,7 @@ export class TableComponent implements OnInit {
     };
     tableCustomizedFilterSortName = null;
     tableCustomizedFilterSortValue = null;
-    
+
     tableCustomizedFilterDisplayData = [ ...this.tableDataSet ];
 
     tableCustomizedFilterSort(sortName: string, value: boolean): void {
@@ -551,7 +551,7 @@ export class TableComponent implements OnInit {
         }
     ];
     tableTreeDataExpandDataCache = {};
-    
+
     tableTreeDataCollapse(array: TreeNodeInterface[], data: TreeNodeInterface, $event: boolean): void {
         if ($event === false) {
             if (data.children) {
@@ -565,13 +565,13 @@ export class TableComponent implements OnInit {
             }
         }
     }
-    
+
     tableTreeDataConvertTreeToList(root: object): TreeNodeInterface[] {
         const stack = [];
         const array = [];
         const hashMap = {};
         stack.push({ ...root, level: 0, expand: false });
-    
+
         while (stack.length !== 0) {
             const node = stack.pop();
             this.tableTreeDataVisitNode(node, hashMap, array);
@@ -581,10 +581,10 @@ export class TableComponent implements OnInit {
                 }
             }
         }
-    
+
         return array;
     }
-    
+
     tableTreeDataVisitNode(node: TreeNodeInterface, hashMap: object, array: TreeNodeInterface[]): void {
         if (!hashMap[ node.key ]) {
             hashMap[ node.key ] = true;
@@ -695,7 +695,6 @@ export class TableComponent implements OnInit {
     tableEditableRowSaveEdit(key: string): void {
         const index = this.tableEditableRowDataSet.findIndex(item => item.key === key);
         Object.assign(this.tableEditableRowDataSet[ index ], this.tableEditableRowEditCache[ key ].data);
-        // this.dataSet[ index ] = this.editCache[ key ].data;
         this.tableEditableRowEditCache[ key ].edit = false;
     }
 
@@ -784,7 +783,7 @@ export class TableComponent implements OnInit {
         this.tableEditableRowCode = tableCode.tableEditableRowCode;
         this.tableNestedCode = tableCode.tableNestedCode;
         this.tableDynamicCode = tableCode.tableDynamicCode;
-        
+
         for (let i = 0; i < 46; i++) {
             this.tableOperationDataSet.push({
                 name   : `Edward King ${i}`,
@@ -873,5 +872,5 @@ export class TableComponent implements OnInit {
                 expand     : false
             });
         }
-    }  
-}    
+    }
+}
