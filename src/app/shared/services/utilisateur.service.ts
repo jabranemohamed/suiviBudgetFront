@@ -18,7 +18,11 @@ export class UtilisateurService {
     this.headers = this.headers.append('Authorization', 'Bearer ' + this.token);
   }
 
-  public findAllUtilisateurs(): Observable<any> {
+  public findAllUsers(): Observable<any> {
     return this.http.get(this.API_URL + "utilisateurs", {headers: this.headers});
+  }
+
+  enableUser(user: any): Observable<any> {
+    return this.http.put(this.API_URL + "utilisateur",user, {headers: this.headers});
   }
 }

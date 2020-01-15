@@ -54,10 +54,9 @@ export class RolesComponent implements OnInit {
   tableEditableRowSaveEdit(key: string): void {
     const index = this.displayData.findIndex(item => item.libelle === key);
     Object.assign(this.displayData[ index ], this.tableEditableRowEditCache[ key ].data);
-
-    console.log(this.displayData[ index ])
-
     this.tableEditableRowEditCache[ key ].edit = false;
+    this.roleService.updateRole(this.displayData[ index ]).subscribe(data => {
+    });
   }
   tableEditableRowUpdateEditCache(): void {
     this.displayData.forEach(item => {

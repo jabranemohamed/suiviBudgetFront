@@ -46,7 +46,6 @@ export class CommandeService {
   }
 
   saveCommandes(tableEditableCellDataSet: any) {
-    console.log("enter her 2");
     return this.http.put(this.API_URL + "commandes" , tableEditableCellDataSet, {headers: this.headers});
   }
 }

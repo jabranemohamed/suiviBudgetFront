@@ -25,7 +25,7 @@
         </nz-form-control>
       </nz-form-item>
 
-      <button nz-button nzType="primary"><i nz-icon nzType="search"></i>Search</button>
+      <button nz-button nzType="primary"><i nz-icon nzType="search"></i>Chercher</button>
 
     </form>
   </div>
@@ -39,7 +39,7 @@
   <br><br><br>
   <div *ngIf="dataFound">
     <nz-table #ordersListTable [nzData]="displayData"
-              (nzCurrentPageDataChange)="currentPageDataChange($event)"
+              [nzPageSize]="10"
               (nzPageIndexChange)="refreshStatus()"
               (nzPageSizeChange)="refreshStatus()">
       <thead (nzSortChange)="sort($event)" nzSingleSort>

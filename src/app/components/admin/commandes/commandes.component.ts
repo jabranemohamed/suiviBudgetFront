@@ -40,6 +40,9 @@ export class CommandesComponent implements OnInit {
       codeUL: [null, [Validators.required]],
       datePicker: [null, [Validators.required]]
     });
+    var d = new Date();
+    var n = d.getFullYear();
+    this.commandeValidationForm.setValue({codeUL: sessionStorage.getItem('localUnit'),datePicker:d});
   }
 
   registerSubmitForm(): void {

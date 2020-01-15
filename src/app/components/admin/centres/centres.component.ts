@@ -50,7 +50,7 @@ export class CentresComponent implements OnInit {
 
   findAllCentre() {
     this.centreService.findAllCentre().subscribe(data => {
-      this.displayData = data.content;
+      this.displayData = data;
     });
   }
 

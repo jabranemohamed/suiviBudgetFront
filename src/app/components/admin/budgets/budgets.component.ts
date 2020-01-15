@@ -32,7 +32,6 @@ export class BudgetsComponent implements OnInit {
     });
     var d = new Date();
     var n = d.getFullYear();
-
     this.budgetValidationForm.setValue({codeUL: sessionStorage.getItem('localUnit'),datePicker:d});
   }
 

@@ -11,15 +11,13 @@
             (nzPageSizeChange)="refreshStatus()">
     <thead (nzSortChange)="sort($event)" nzSingleSort>
     <tr>
-      <th nzShowSort nzSortKey="id">ID</th>
-      <th nzShowSort nzSortKey="libelle">Centre UL</th>
-      <th nzShowSort nzSortKey="description">Code UL</th>
-      <th>Action</th>
+      <th nzShowSort nzSortKey="code">Centre UL</th>
+      <th nzShowSort nzSortKey="localUnit.code">Code UL</th>
+      <th nzShowSort nzSortKey="localUnit.description">Description UL</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let item of ordersListTable.data | search:'name':search as count ;  let i=index">
-      <td>#{{item.id}}</td>
       <td>{{item.code}}</td>
       <td>{{item.localUnit.code}}</td>
       <td>{{item.localUnit.description}}</td>

@@ -22,25 +22,18 @@ export class UtilisateursComponent implements OnInit {
   }
 
   findAllUtilisateurs() {
-    this.utilisateurService.findAllUtilisateurs().subscribe(data => {
+    this.utilisateurService.findAllUsers().subscribe(data => {
       this.displayData = data.content;
     });
   }
 
   refreshStatus(): void {
-    const allChecked = this.displayData.every(value => value.checked === true);
-    const allUnChecked = this.displayData.every(value => !value.checked);
-    this.allChecked = allChecked;
-    this.indeterminate = (!allChecked) && (!allUnChecked);
   }
 
-  currentPageDataChange($event: Array<{
-    id: number;
-    libelle: string;
-    description: string;
-  }>): void {
+  currentPageDataChange($event: any): void {
+    console.log("currentPageDataChange")
+    console.log($event)
     this.displayData = $event;
-    this.refreshStatus();
   }
 
   sort(sortAttribute: any) {
@@ -54,4 +47,9 @@ export class UtilisateursComponent implements OnInit {
     this.refreshStatus();
   }
 
+  onClick(user: any) {
+    this.utilisateurService.enableUser(user).subscribe(data => {
+
+    });
+  }
 }

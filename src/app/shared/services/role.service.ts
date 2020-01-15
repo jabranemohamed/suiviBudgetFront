@@ -21,4 +21,8 @@ export class RoleService {
   public findAllRoles(): Observable<any> {
     return this.http.get(this.API_URL + "roles" , {headers: this.headers});
   }
+
+  public updateRole(updatedRole: any): Observable<any>  {
+    return this.http.put(this.API_URL + "role" , updatedRole, {headers: this.headers});
+  }
 }
