@@ -19,6 +19,23 @@ export const ROUTES: SideNavInterface[] = [
         ]
     },
     {
+      path: '',
+      title: 'Synthèse',
+      iconType: 'nzIcon',
+      iconTheme: 'outline',
+      icon: 'profile',
+      submenu: [
+        {
+          path: '/components/admin/synthese',
+          title: 'Synthèse',
+          iconType: 'nzIcon',
+          icon: 'table',
+          iconTheme: 'outline',
+          submenu: []
+        }
+      ]
+    },
+    {
         path: '',
         title: 'Administration',
         iconType: 'nzIcon',
@@ -84,4 +101,5 @@ export const ROUTES: SideNavInterface[] = [
             }
         ]
     }
+
 ]

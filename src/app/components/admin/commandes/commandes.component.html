@@ -75,6 +75,7 @@
         <th>Marche</th>
         <th>Desc_ligne_cmd</th>
         <th>Cmd_a_regulariser</th>
+        <th>Montant Regularise</th>
         <th>Cmd_regularisee</th>
         <th>Nouveau_segment7</th>
       </tr>
@@ -82,7 +83,7 @@
       <tbody>
       <tr *ngFor="let data of editCellTable.data">
         <td>
-          <button nz-button nzType="primary" nzShape="circle"><i nz-icon nzType="search"></i></button>
+          <button nz-button nzType="primary" nzShape="circle" (click)="selectBudget(selectBudgetContent,data)"><i nz-icon nzType="search"></i></button>
         </td>
         <td>{{data.id_dist_cmd}}</td>
         <td>{{data.id_entet_cmd}}</td>
@@ -90,13 +91,13 @@
         <td>{{data.fournisseur}}</td>
         <td>{{data.description_commande}}</td>
         <td>{{data.moe_prescripteur}}</td>
-        <td><input nz-input [(ngModel)]="data.budget_grande_activite" size="10" [disabled]="true" /></td>
-        <td><input nz-input [(ngModel)]="data.budget_activite" size="10" [disabled]="true" /></td>
-        <td><input nz-input [(ngModel)]="data.budget_notifie" size="10" [disabled]="true" /></td>
-        <td><input nz-input [(ngModel)]="data.bud_budgget_estime1" size="10" [disabled]="true" /></td>
-        <td><input nz-input [(ngModel)]="data.bud_budgget_estime2" size="10" [disabled]="true" /></td>
-        <td><input nz-input [(ngModel)]="data.bud_budgget_estime3" size="10" [disabled]="true" /></td>
-        <td><input nz-input [(ngModel)]="data.bud_budgget_estime4" size="10" [disabled]="true" /></td>
+        <td style="color: #0000ee"><label [(ngModel)]="data.budget_grande_activite" ngDefaultControl>{{data.budget_grande_activite}}</label></td>
+        <td style="color: #0000ee"><label [(ngModel)]="data.budget_activite" ngDefaultControl>{{data.budget_activite}}</label></td>
+        <td style="color: #26880f"><label [(ngModel)]="data.budget_notifie" ngDefaultControl>{{data.budget_notifie}}</label></td>
+        <td style="color: #88150d"><label [(ngModel)]="data.bud_budgget_estime1" ngDefaultControl>{{data.bud_budgget_estime1}}</label></td>
+        <td style="color: #88150d"><label [(ngModel)]="data.bud_budgget_estime2" ngDefaultControl>{{data.bud_budgget_estime2}}</label></td>
+        <td style="color: #88150d"><label [(ngModel)]="data.bud_budgget_estime3" ngDefaultControl>{{data.bud_budgget_estime3}}</label></td>
+        <td style="color: #88150d"><label [(ngModel)]="data.bud_budgget_estime4" ngDefaultControl>{{data.bud_budgget_estime4}}</label></td>
         <td>{{data.qte_engagee_annee_en_cours}}</td>
         <td>{{data.reste_a_receptionner}}</td>
         <td>{{data.quantite_commandee}}</td>
@@ -115,31 +116,25 @@
         <td>{{data.marche}}</td>
         <td>{{data.desc_ligne_cmd}}</td>
         <td>
-          <div class="editable-cell">
-            <div class="editable-cell-text-wrapper">
-              <ng-container>
-                <input type="text" [(ngModel)]="data.cmd_a_regulariser" size="5">
-                <i nz-icon nzType="check" class="editable-cell-icon-check"></i>
-              </ng-container>
-            </div>
-          </div>
+          <label nz-checkbox  [(ngModel)]="data.cmd_a_regulariser"></label>
         </td>
         <td>
           <div class="editable-cell">
             <div class="editable-cell-text-wrapper">
               <ng-container>
-                <input type="text" [(ngModel)]="data.cmd_regularisee" size="5">
-                <i nz-icon nzType="check" class="editable-cell-icon-check"></i>
+                <input type="text" [(ngModel)]="data.montant_Regularise" size="10"  [required]="data.cmd_a_regulariser">
               </ng-container>
             </div>
           </div>
         </td>
         <td>
+          <label nz-checkbox  [(ngModel)]="data.cmd_regularisee"></label>
+        </td>
+        <td>
           <div class="editable-cell">
             <div class="editable-cell-text-wrapper">
               <ng-container>
-                <input type="text" [(ngModel)]="data.nouveau_segment7" size="5">
-                <i nz-icon nzType="check" class="editable-cell-icon-check"></i>
+                <input type="text" [(ngModel)]="data.nouveau_segment7" size="10" [required]="data.cmd_regularisee">
               </ng-container>
             </div>
           </div>
@@ -152,4 +147,35 @@
   <button *ngIf="dataFound" nz-button class="login-form-button" [nzType]="'primary'" (click)="enregistrer()">
     Enregistrer
   </button>
+
+
+  <ng-template #selectBudgetContent>
+      <nz-table #ordersListTable [nzData]="allBudgets"
+                [nzPageSize]="10">
+        <thead (nzSortChange)="sort($event)" nzSingleSort>
+        <tr>
+          <th></th>
+          <th nzShowSort nzSortKey="id">Grande Activité</th>
+          <th nzShowSort nzSortKey="libelle">Activité</th>
+          <th nzShowSort nzSortKey="description">Budget Notifié</th>
+          <th nzShowSort nzSortKey="description">Estimé1</th>
+          <th nzShowSort nzSortKey="description">Estimé2</th>
+          <th nzShowSort nzSortKey="description">Estimé3</th>
+          <th nzShowSort nzSortKey="description">Estimé4</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of ordersListTable.data | search:'name':search as count ;  let i=index">
+          <td nzShowCheckbox  (nzCheckedChange)="budgetSelection(item)"></td>
+          <td>{{item.budgetId.grandeActivite}}</td>
+          <td>{{item.budgetId.activite}}</td>
+          <td>{{item.budget_notifie}}</td>
+          <td>{{item.estime1}}</td>
+          <td>{{item.estime2}}</td>
+          <td>{{item.estime3}}</td>
+          <td>{{item.estime4}}</td>
+        </tr>
+        </tbody>
+      </nz-table>
+  </ng-template>
 </nz-card>

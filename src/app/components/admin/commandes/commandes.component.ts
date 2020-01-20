@@ -1,10 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, TemplateRef} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CommandeService} from "../../../shared/services/commande.service";
 import {BudgetService} from "../../../shared/services/budget.service";
-import {catchError} from "rxjs/operators";
-import {throwError} from "rxjs";
-import {HttpErrorResponse} from "@angular/common/http";
+import {NzModalService} from "ng-zorro-antd";
+import {TableService} from "../../../shared/services/table.service";
 
 @Component({
   selector: 'app-commandes',
@@ -22,15 +21,16 @@ export class CommandesComponent implements OnInit {
   allChecked: boolean = false;
   indeterminate: boolean = false;
   search: any;
-  tableEditableCellEditCache = {};
   tableEditableCellDataSet;
-  allGrandBudget;
-  allBudgets = {};
+  allBudgets: any;
   cu;
   dp;
   fullYear;
+  selectedCommand: any;
+  selectedBudget: any;
 
-  constructor(private resgisterFB: FormBuilder, private commandService: CommandeService, private budgetService: BudgetService) {
+  constructor(private resgisterFB: FormBuilder, private commandService: CommandeService
+    , private budgetService: BudgetService, private modalService: NzModalService, public tableSvc: TableService) {
   }
 
   ngOnInit() {
@@ -42,7 +42,8 @@ export class CommandesComponent implements OnInit {
     });
     var d = new Date();
     var n = d.getFullYear();
-    this.commandeValidationForm.setValue({codeUL: sessionStorage.getItem('localUnit'),datePicker:d});
+    this.commandeValidationForm.setValue({codeUL: sessionStorage.getItem('localUnit'), datePicker: d});
+    this.registerSubmitForm();
   }
 
   registerSubmitForm(): void {
@@ -61,50 +62,14 @@ export class CommandesComponent implements OnInit {
       } else {
         this.noDataFoundMessageDisplay = false;
         this.dataFound = true;
-
-        for (var key in this.tableEditableCellDataSet) {
-            var tt = this.tableEditableCellDataSet[key];
-            this.showActivity(tt.id_dist_cmd,tt.budget_grande_activite);
-        }
-
-      }
-    });
-    this.commandService.findAllBudgetGrandeActivitePerYearAndCodeUnit(this.fullYear, this.cu).subscribe(data => {
-        this.allGrandBudget = data;
-      });
-  }
-
-  tableEditableCellEditDeleteRow(i: string): void {
-    const dataSet = this.tableEditableCellDataSet.filter(d => d.key !== i);
-    this.tableEditableCellDataSet = dataSet;
-  }
-
-  tableEditableCellEditStartEdit(key: string): void {
-    this.tableEditableCellEditCache[key].edit = true;
-  }
-
-  tableEditableCellEditFinishEdit(key: string): void {
-    this.tableEditableCellEditCache[key].edit = false;
-    this.tableEditableCellDataSet.find(item => item.key === key).name = this.tableEditableCellEditCache[key].name;
-  }
-
-  tableEditableCellUpdateEditCache(): void {
-    this.tableEditableCellDataSet.forEach(item => {
-      if (!this.tableEditableCellEditCache[item.key]) {
-        this.tableEditableCellEditCache[item.key] = {
-          edit: false,
-          name: item.name
-        };
+        this.budgetService.findAllBudgetPerYearAndCodeUnit(this.fullYear, this.cu).subscribe(data => {
+            this.allBudgets = data.content;
+          }
+        )
       }
     });
   }
 
-  showActivity(id_dist_cmd: string, data: any) {
-    this.commandService.findAllActivitePerYearAndCodeUnit(data, this.fullYear, this.cu).subscribe(data => {
-      data.budget_activite = "";
-      this.allBudgets[id_dist_cmd] = data;
-    });
-  }
 
   showBudgetInfos(grandActivite: string, activite: string, dataRef: any) {
     console.log("enter her showBudgetInfos");
@@ -122,9 +87,41 @@ export class CommandesComponent implements OnInit {
 
     });
   }
+
   enregistrer() {
     this.commandService.saveCommandes(this.tableEditableCellDataSet).subscribe(data => {
       this.registerSubmitForm();
     });
+  }
+
+  sort(sortAttribute: any) {
+    this.allBudgets = this.tableSvc.sort(sortAttribute, this.allBudgets);
+  }
+
+  selectBudget(selectBudgetContent: TemplateRef<any>, commande: any) {
+    this.selectedCommand = commande;
+    console.log(this.selectedCommand)
+    const modal = this.modalService.create({
+      nzTitle: 'Choisir un budget',
+      nzContent: selectBudgetContent,
+      nzWidth: 1000,
+      nzOnOk   : () => console.log('OK')
+    })
+
+  }
+
+  budgetSelection(budget: any) {
+    this.selectedBudget = budget;
+    this.selectedCommand.budget_grande_activite = budget.budgetId.grandeActivite
+    this.selectedCommand.budget_activite   = budget.budgetId.activite
+    this.selectedCommand.budget_notifie   = budget.budget_notifie
+    this.selectedCommand.bud_budgget_estime1   = budget.estime1
+    this.selectedCommand.bud_budgget_estime2   = budget.estime2
+    this.selectedCommand.bud_budgget_estime3   = budget.estime3
+    this.selectedCommand.bud_budgget_estime4   = budget.estime4
+  }
+
+  activateCmdRegularisee(data: any) {
+
   }
 }

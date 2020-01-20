@@ -33,6 +33,7 @@ export class BudgetsComponent implements OnInit {
     var d = new Date();
     var n = d.getFullYear();
     this.budgetValidationForm.setValue({codeUL: sessionStorage.getItem('localUnit'),datePicker:d});
+    this.registerSubmitForm();
   }
 
   registerSubmitForm(): void {
@@ -44,11 +45,6 @@ export class BudgetsComponent implements OnInit {
     let cu = this.budgetValidationForm.get('codeUL').value;
     let dp = this.budgetValidationForm.get('datePicker').value;
     let fullYear = dp.getFullYear();
-
-    console.log(cu)
-
-    console.log(fullYear)
-
     this.budgetService.findAllBudgetPerYearAndCodeUnit(fullYear, cu).subscribe(data => {
       this.displayData = data.content;
       if (this.displayData == null || this.displayData.length == 0) {

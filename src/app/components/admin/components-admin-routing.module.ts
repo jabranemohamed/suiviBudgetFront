@@ -6,6 +6,7 @@ import {RolesComponent} from "./roles/roles.component";
 import {UtilisateursComponent} from "./utilisateurs/utilisateurs.component";
 import {FilesUploadComponent} from "./files-upload/files-upload.component";
 import {CommandesComponent} from "./commandes/commandes.component";
+import {SyntheseComponent} from "./synthese/synthese.component";
 
 const routes: Routes = [
   {
@@ -59,6 +60,13 @@ const routes: Routes = [
         component: CommandesComponent,
         data: {
           title: 'Suivie des Commandes'
+        }
+      },
+      {
+        path: 'synthese',
+        component: SyntheseComponent,
+        data: {
+          title: 'Synthèse'
         }
       }
     ]
