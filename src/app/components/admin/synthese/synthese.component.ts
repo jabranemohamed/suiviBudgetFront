@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, TemplateRef} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {TableService} from "../../../shared/services/table.service";
 import {SyntheseService} from "../../../shared/services/synthese.service";
+import {NzModalService} from "ng-zorro-antd";
 
 @Component({
   selector: 'app-synthese',
@@ -19,8 +20,9 @@ export class SyntheseComponent implements OnInit {
   allChecked: boolean = false;
   indeterminate: boolean = false;
   search: any;
+  selectedBudget:any;
 
-  constructor(private resgisterFB: FormBuilder, private syntheseService: SyntheseService, public tableSvc: TableService) {
+  constructor(private resgisterFB: FormBuilder,private modalService: NzModalService, private syntheseService: SyntheseService, public tableSvc: TableService) {
   }
 
   ngOnInit() {
@@ -84,7 +86,14 @@ export class SyntheseComponent implements OnInit {
     this.refreshStatus();
   }
 
-  showCommandes(budget: any) {
+  showCommandes(selectBudgetContent: TemplateRef<any>,budget: any) {
     console.log(JSON.stringify(budget))
+      this.selectedBudget = budget;
+      const modal = this.modalService.create({
+        nzTitle: 'List des Commandes associées',
+        nzContent: selectBudgetContent,
+        nzWidth: 1000,
+        nzOnOk   : () => console.log('OK')
+      })
   }
 }

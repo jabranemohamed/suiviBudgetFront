@@ -106,14 +106,9 @@ export class CommandesComponent implements OnInit {
       nzWidth: 1000,
       nzOnOk   : () => console.log('OK')
     })
-
   }
 
   budgetSelection(budget: any) {
-
-    console.log(JSON.stringify(budget));
-    console.log(JSON.stringify(this.selectedCommand));
-
     this.selectedBudget = budget;
     this.selectedCommand.grande_activite = budget.budgetId.grandeActivite
     this.selectedCommand.activite   = budget.budgetId.activite

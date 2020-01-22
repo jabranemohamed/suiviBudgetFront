@@ -40,6 +40,113 @@
 
 
   <br><br><br>
+
+  <div *ngIf="dataFound">
+    <nz-table #editCellTable nzBordered [nzScroll]="{ x : '500px' }" [nzPageSize]="50"
+              [nzData]="selectedBudget.commandes">
+      <thead>
+      <tr>
+        <th></th>
+        <th>ID_dist_cmd</th>
+        <th>ID_entet_cmd</th>
+        <th>Numero ols</th>
+        <th>Fournisseur</th>
+        <th>Description commande</th>
+        <th>MOE prescripteur</th>
+        <th>Budget grande activite</th>
+        <th>Budget activite</th>
+        <th>Budget notifie</th>
+        <th>Bud budgget estime1</th>
+        <th>Bud budgget estime2</th>
+        <th>Bud budgget estime3</th>
+        <th>Bud budgget estime4</th>
+        <th>Qte engagee annee en cours</th>
+        <th>Reste a receptionner</th>
+        <th>Quantité commandée</th>
+        <th>quantité réceptionnée</th>
+        <th>quantité facturée</th>
+        <th>Receptionne_annee_en_cours</th>
+        <th>date création commande</th>
+        <th>Segment1</th>
+        <th>Segment2</th>
+        <th>Segment3</th>
+        <th>Segment4</th>
+        <th>Segment5</th>
+        <th>Segment6</th>
+        <th>Segment7</th>
+        <th>Catgory</th>
+        <th>Marche</th>
+        <th>Desc_ligne_cmd</th>
+        <th>Cmd_a_regulariser</th>
+        <th>Montant Regularise</th>
+        <th>Cmd_regularisee</th>
+        <th>Nouveau_segment7</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of editCellTable.data">
+        <td>
+          <button nz-button nzType="primary" nzShape="circle" (click)="selectBudget(selectBudgetContent,data)"><i nz-icon nzType="search"></i></button>
+        </td>
+        <td>{{data.id_dist_cmd}}</td>
+        <td>{{data.id_entet_cmd}}</td>
+        <td>{{data.numero_ols}}</td>
+        <td>{{data.fournisseur}}</td>
+        <td>{{data.description_commande}}</td>
+        <td>{{data.moe_prescripteur}}</td>
+        <td style="color: #0000ee"><label [(ngModel)]="data.budget_grande_activite" ngDefaultControl>{{data.grande_activite}}</label></td>
+        <td style="color: #0000ee"><label [(ngModel)]="data.budget_activite" ngDefaultControl>{{data.activite}}</label></td>
+        <td style="color: #26880f"><label [(ngModel)]="data.budget_notifie" ngDefaultControl>{{data.notifie}}</label></td>
+        <td style="color: #88150d"><label [(ngModel)]="data.bud_budgget_estime1" ngDefaultControl>{{data.bud_budgget_estime1}}</label></td>
+        <td style="color: #88150d"><label [(ngModel)]="data.bud_budgget_estime2" ngDefaultControl>{{data.bud_budgget_estime2}}</label></td>
+        <td style="color: #88150d"><label [(ngModel)]="data.bud_budgget_estime3" ngDefaultControl>{{data.bud_budgget_estime3}}</label></td>
+        <td style="color: #88150d"><label [(ngModel)]="data.bud_budgget_estime4" ngDefaultControl>{{data.bud_budgget_estime4}}</label></td>
+        <td>{{data.qte_engagee_annee_en_cours}}</td>
+        <td>{{data.reste_a_receptionner}}</td>
+        <td>{{data.quantite_commandee}}</td>
+        <td>{{data.quantite_receptionnee}}</td>
+        <td>{{data.quantite_facturee}}</td>
+        <td>{{data.recep_avant_annee_en_cours}}</td>
+        <td>{{data.date_creation_commande}}</td>
+        <td>{{data.segment1}}</td>
+        <td>{{data.segment2}}</td>
+        <td>{{data.segment3}}</td>
+        <td>{{data.segment4}}</td>
+        <td>{{data.segment5}}</td>
+        <td>{{data.segment6}}</td>
+        <td>{{data.segment7}}</td>
+        <td>{{data.catgory}}</td>
+        <td>{{data.marche}}</td>
+        <td>{{data.desc_ligne_cmd}}</td>
+        <td>
+          <label nz-checkbox  [(ngModel)]="data.cmd_a_regulariser"></label>
+        </td>
+        <td>
+          <div class="editable-cell">
+            <div class="editable-cell-text-wrapper">
+              <ng-container>
+                <input type="text" [(ngModel)]="data.montant_Regularise" size="10"  [required]="data.cmd_a_regulariser">
+              </ng-container>
+            </div>
+          </div>
+        </td>
+        <td>
+          <label nz-checkbox  [(ngModel)]="data.cmd_regularisee"></label>
+        </td>
+        <td>
+          <div class="editable-cell">
+            <div class="editable-cell-text-wrapper">
+              <ng-container>
+                <input type="text" [(ngModel)]="data.nouveau_segment7" size="10" [required]="data.cmd_regularisee">
+              </ng-container>
+            </div>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </div>
+
   <div *ngIf="dataFound">
     <nz-table #ordersListTable [nzData]="displayData"
               [nzPageSize]="10"
