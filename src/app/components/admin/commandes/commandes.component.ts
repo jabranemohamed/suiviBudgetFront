@@ -100,7 +100,6 @@ export class CommandesComponent implements OnInit {
 
   selectBudget(selectBudgetContent: TemplateRef<any>, commande: any) {
     this.selectedCommand = commande;
-    console.log(this.selectedCommand)
     const modal = this.modalService.create({
       nzTitle: 'Choisir un budget',
       nzContent: selectBudgetContent,
@@ -111,17 +110,19 @@ export class CommandesComponent implements OnInit {
   }
 
   budgetSelection(budget: any) {
+
+    console.log(JSON.stringify(budget));
+    console.log(JSON.stringify(this.selectedCommand));
+
     this.selectedBudget = budget;
-    this.selectedCommand.budget_grande_activite = budget.budgetId.grandeActivite
-    this.selectedCommand.budget_activite   = budget.budgetId.activite
-    this.selectedCommand.budget_notifie   = budget.budget_notifie
+    this.selectedCommand.grande_activite = budget.budgetId.grandeActivite
+    this.selectedCommand.activite   = budget.budgetId.activite
+    this.selectedCommand.notifie   = budget.budget_notifie
     this.selectedCommand.bud_budgget_estime1   = budget.estime1
     this.selectedCommand.bud_budgget_estime2   = budget.estime2
     this.selectedCommand.bud_budgget_estime3   = budget.estime3
     this.selectedCommand.bud_budgget_estime4   = budget.estime4
   }
 
-  activateCmdRegularisee(data: any) {
 
-  }
 }

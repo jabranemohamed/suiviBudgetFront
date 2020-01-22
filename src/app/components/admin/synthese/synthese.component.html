@@ -1,1 +1,82 @@
-<p>synthese works!</p>
+<nz-card>
+  <h4>Créer une Synthèse</h4>
+  <div class="m-t-25">
+    <form nz-form [nzLayout]="'inline'" [formGroup]="syntheseValidationForm" (ngSubmit)="submitForm()">
+
+      <nz-form-item>
+        <nz-form-label nzRequired>Code UL</nz-form-label>
+        <nz-form-control>
+          <input formControlName="codeUL" nz-input required placeholder="Code UL"/>
+          <nz-form-explain
+            *ngIf="syntheseValidationForm.get('codeUL').dirty && syntheseValidationForm.get('codeUL').errors">Entrer un code
+            d'unité Local!
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzRequired>Année</nz-form-label>
+        <nz-form-control>
+          <nz-year-picker formControlName="datePicker" nzPlaceHolder="Choisie une année"></nz-year-picker>
+          <nz-form-explain
+            *ngIf="syntheseValidationForm.get('datePicker').dirty && syntheseValidationForm.get('datePicker').errors">
+            Choisissez une année!
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+
+      <button nz-button nzType="primary"><i nz-icon nzType="search"></i>Chercher</button>
+
+    </form>
+  </div>
+
+  <div *ngIf="noDataFoundMessageDisplay" style="text-align: center;">
+    <br><br><br>
+    <i nz-icon nzType="meh" style="font-size: 20px;color: #c82829"></i>
+    <p>Aucun Resultat n'est retrouver !</p>
+  </div>
+
+
+
+
+  <br><br><br>
+  <div *ngIf="dataFound">
+    <nz-table #ordersListTable [nzData]="displayData"
+              [nzPageSize]="10"
+              (nzPageIndexChange)="refreshStatus()"
+              (nzPageSizeChange)="refreshStatus()">
+      <thead (nzSortChange)="sort($event)" nzSingleSort>
+      <tr>
+        <th></th>
+        <th nzShowSort nzSortKey="id">Grande Activité</th>
+        <th nzShowSort nzSortKey="libelle">Activité</th>
+        <th nzShowSort nzSortKey="description">Budget Notifié</th>
+        <th nzShowSort nzSortKey="description">Estimé1</th>
+        <th nzShowSort nzSortKey="description">Estimé2</th>
+        <th nzShowSort nzSortKey="description">Estimé3</th>
+        <th nzShowSort nzSortKey="description">Estimé4</th>
+        <th nzShowSort nzSortKey="engage">Engagé</th>
+        <th nzShowSort nzSortKey="receptionne">Réceptionné</th>
+        <th nzShowSort nzSortKey="reste_a_receptionne">Reste à réceptionne</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of ordersListTable.data | search:'name':search as count ;  let i=index">
+        <td>
+          <button nz-button nzType="primary" nzShape="circle" (click)="showCommandes(item.budget)"><i nz-icon nzType="search"></i></button>
+        </td>
+        <td>{{item.budget.budgetId.grandeActivite}}</td>
+        <td>{{item.budget.budgetId.activite}}</td>
+        <td>{{item.budget.budget_notifie}}</td>
+        <td>{{item.budget.estime1}}</td>
+        <td>{{item.budget.estime2}}</td>
+        <td>{{item.budget.estime3}}</td>
+        <td>{{item.budget.estime4}}</td>
+        <td style="color: #2195ee;font-weight: bold;">{{item.engage}}</td>
+        <td style="color: #44884d;font-weight: bold;">{{item.receptionne}}</td>
+        <td style="color: #990b1b;font-weight: bold;">{{item.reste_a_receptionne}}</td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</nz-card>
