@@ -35,11 +35,11 @@ export class SyntheseComponent implements OnInit {
     var d = new Date();
     var n = d.getFullYear();
     this.syntheseValidationForm.setValue({codeUL: sessionStorage.getItem('localUnit'), datePicker: d});
+    this.selectedBudget = "";
     this.submitForm();
   }
 
   submitForm(): void {
-
     for (const i in this.syntheseValidationForm.controls) {
       this.syntheseValidationForm.controls[i].markAsDirty();
       this.syntheseValidationForm.controls[i].updateValueAndValidity();
@@ -86,12 +86,12 @@ export class SyntheseComponent implements OnInit {
     this.refreshStatus();
   }
 
-  showCommandes(selectBudgetContent: TemplateRef<any>,budget: any) {
+  showCommandes(commandeContent: TemplateRef<any>,budget: any) {
     console.log(JSON.stringify(budget))
       this.selectedBudget = budget;
       const modal = this.modalService.create({
         nzTitle: 'List des Commandes associées',
-        nzContent: selectBudgetContent,
+        nzContent: commandeContent,
         nzWidth: 1000,
         nzOnOk   : () => console.log('OK')
       })

@@ -40,13 +40,11 @@
 
 
   <br><br><br>
-
-  <div *ngIf="dataFound">
+  <ng-template #commandeContent>
     <nz-table #editCellTable nzBordered [nzScroll]="{ x : '500px' }" [nzPageSize]="50"
               [nzData]="selectedBudget.commandes">
       <thead>
       <tr>
-        <th></th>
         <th>ID_dist_cmd</th>
         <th>ID_entet_cmd</th>
         <th>Numero ols</th>
@@ -85,9 +83,6 @@
       </thead>
       <tbody>
       <tr *ngFor="let data of editCellTable.data">
-        <td>
-          <button nz-button nzType="primary" nzShape="circle" (click)="selectBudget(selectBudgetContent,data)"><i nz-icon nzType="search"></i></button>
-        </td>
         <td>{{data.id_dist_cmd}}</td>
         <td>{{data.id_entet_cmd}}</td>
         <td>{{data.numero_ols}}</td>
@@ -118,37 +113,17 @@
         <td>{{data.catgory}}</td>
         <td>{{data.marche}}</td>
         <td>{{data.desc_ligne_cmd}}</td>
-        <td>
-          <label nz-checkbox  [(ngModel)]="data.cmd_a_regulariser"></label>
-        </td>
-        <td>
-          <div class="editable-cell">
-            <div class="editable-cell-text-wrapper">
-              <ng-container>
-                <input type="text" [(ngModel)]="data.montant_Regularise" size="10"  [required]="data.cmd_a_regulariser">
-              </ng-container>
-            </div>
-          </div>
-        </td>
-        <td>
-          <label nz-checkbox  [(ngModel)]="data.cmd_regularisee"></label>
-        </td>
-        <td>
-          <div class="editable-cell">
-            <div class="editable-cell-text-wrapper">
-              <ng-container>
-                <input type="text" [(ngModel)]="data.nouveau_segment7" size="10" [required]="data.cmd_regularisee">
-              </ng-container>
-            </div>
-          </div>
-        </td>
+        <td>{{data.cmd_a_regulariser}}</td>
+        <td>{{data.montant_Regularise}}</td>
+        <td>{{data.cmd_regularisee}}</td>
+        <td>{{data.nouveau_segment7}}</td>
+
       </tr>
       </tbody>
     </nz-table>
-  </div>
+  </ng-template>
 
-  <div *ngIf="dataFound">
-    <nz-table #ordersListTable [nzData]="displayData"
+  <nz-table #ordersListTable [nzData]="displayData"
               [nzPageSize]="10"
               (nzPageIndexChange)="refreshStatus()"
               (nzPageSizeChange)="refreshStatus()">
@@ -170,7 +145,7 @@
       <tbody>
       <tr *ngFor="let item of ordersListTable.data | search:'name':search as count ;  let i=index">
         <td>
-          <button nz-button nzType="primary" nzShape="circle" (click)="showCommandes(item.budget)"><i nz-icon nzType="search"></i></button>
+          <button nz-button nzType="primary" nzShape="circle" (click)="showCommandes(commandeContent,item.budget)"><i nz-icon nzType="shopping-cart"></i></button>
         </td>
         <td>{{item.budget.budgetId.grandeActivite}}</td>
         <td>{{item.budget.budgetId.activite}}</td>
@@ -185,5 +160,5 @@
       </tr>
       </tbody>
     </nz-table>
-  </div>
+
 </nz-card>

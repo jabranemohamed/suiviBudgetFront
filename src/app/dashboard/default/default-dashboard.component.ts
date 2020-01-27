@@ -14,37 +14,20 @@ export class DefaultDashboardComponent implements OnInit {
   gold = this.themeColors.gold;
   purple = this.themeColors.purple;
   red = this.themeColors.red;
-  data:any
-  budget_notifie:any;
-  budget_Estime1:any;
-  budget_Estime2:any;
-  budget_Estime3:any;
-  budget_Estime4:any;
+  data: any
 
-  constructor(private colorConfig: ThemeConstantService,private statisticService:StatisticService) {
+  constructor(private colorConfig: ThemeConstantService, private statisticService: StatisticService) {
   }
 
 
   ngOnInit(): void {
-    this.statisticService.getStatByYearAndCode(2019,'SDP').subscribe(data => {
+    var d = new Date();
+    var n = d.getFullYear();
+    var codeUL = sessionStorage.getItem('localUnit');
+    console.log("enter her");
+    this.statisticService.getStatByYearAndCode(n, codeUL).subscribe(data => {
       this.data = data;
-      for( let prop in data ){
-        console.log( data[prop] );
-        // @ts-ignore
-        if('Redevance' == data[prop].grandeActivite){
-          console.log("entrer her");
-          // @ts-ignore
-          this.budget_notifie = data[prop].estime1;
-          // @ts-ignore
-          this.budget_Estime1 = data[prop].estime2;
-          // @ts-ignore
-          this.budget_Estime2 = data[prop].estime3;
-          // @ts-ignore
-          this.budget_Estime3 = data[prop].estime4;
-          // @ts-ignore
-          this.budget_Estime4 = data[prop].estime4;
-        }
-      }
+      JSON.stringify(this.data );
     });
   }
 

@@ -3,63 +3,38 @@
   <div class="col-md-12 col-lg-12">
     <nz-card>
       <div class="d-flex justify-content-between align-items-center">
-        <h5>Statistique globaux du grande Activité Redevance</h5>
+        <h5>Statistique globaux par grande Activité</h5>
       </div>
 
-      <div class="row">
-          <div class="col-md-4 col-lg-3">
-            <nz-card>
-              <div class="d-flex justify-content-between align-items-center">
-                <div>
-                  <p class="m-b-0">Budget Notif</p>
-                  <h2 class="m-b-0">
-                    <span>€{{budget_notifie}}</span>
-                  </h2>
-                </div>
-                <nz-avatar [nzSize]="50" nzIcon="dollar" class="ant-avatar-blue"></nz-avatar>
-              </div>
-            </nz-card>
-          </div>
-          <div class="col-md-4 col-lg-3">
-            <nz-card>
-              <div class="d-flex justify-content-between align-items-center">
-                <div>
-                  <p class="m-b-0">Budget estime1</p>
-                  <h2 class="m-b-0">
-                    <span>€{{budget_Estime1}}</span>
-                  </h2>
-                </div>
-                <nz-avatar [nzSize]="50" nzIcon="dollar" class="ant-avatar-cyan"></nz-avatar>
-              </div>
-            </nz-card>
-          </div>
-          <div class="col-md-4 col-lg-3">
-            <nz-card>
-              <div class="d-flex justify-content-between align-items-center">
-                <div>
-                  <p class="m-b-0">Budget estime2</p>
-                  <h2 class="m-b-0">
-                    <span>€{{budget_Estime2}}</span>
-                  </h2>
-                </div>
-                <nz-avatar [nzSize]="50" nzIcon="dollar" class="ant-avatar-cyan"></nz-avatar>
-              </div>
-            </nz-card>
-          </div>
-        <div class="col-md-4 col-lg-3">
+      <div class="row" *ngFor="let item of data;index as i">
+        <div class="col-md-6">
           <nz-card>
             <div class="d-flex justify-content-between align-items-center">
               <div>
-                <p class="m-b-0">Budget estime3</p>
-                <h2 class="m-b-0">
-                  <span>€{{budget_Estime3}}</span>
-                </h2>
+                <p class="m-b-0 text-muted">{{item.grandeActivite}}</p>
+                <h2 class="m-b-0">Eng {{item.engage}}</h2>
               </div>
-              <nz-avatar [nzSize]="50" nzIcon="dollar" class="ant-avatar-cyan"></nz-avatar>
+              <nz-tag class="m-r-0 m-b-0" [nzColor]="'cyan'">
+                <i nz-icon nzType="arrow-up" theme="outline"></i>
+                <span class="font-weight-semibold m-l-5">Receptioné  {{item.receptionne}}</span>
+              </nz-tag>
+            </div>
+            <div class="m-t-40">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <nz-badge nzStatus="default" [nzStyle]="{'background-color': blue}"></nz-badge>
+                  <span class="text-gray font-weight-semibold font-size-13">Reste à réceptionné  {{item.reste_a_receptionne}}</span>
+                </div>
+                <span
+                  class="text-dark font-weight-semibold font-size-13">{{(item.reste_a_receptionne/item.receptionne) | percent:'1.0-3'}}</span>
+              </div>
+              <nz-progress [nzStrokeColor]="blue" nzPercent="{{(item.reste_a_receptionne/item.receptionne)*100}}"
+                           nzSize="small" [nzShowInfo]="false"></nz-progress>
             </div>
           </nz-card>
         </div>
-        </div>
+
+      </div>
 
 
     </nz-card>
