@@ -2,31 +2,40 @@
   <h4>Rechercher un Budget</h4>
   <div class="m-t-25">
     <form nz-form [nzLayout]="'inline'" [formGroup]="budgetValidationForm" (ngSubmit)="registerSubmitForm()">
+      <div class="row m-b-30">
+        <div class="col-lg-10">
+          <nz-form-item>
+            <nz-form-label nzRequired>Code UL</nz-form-label>
+            <nz-form-control>
+              <input formControlName="codeUL" nz-input required placeholder="Code UL"/>
+              <nz-form-explain
+                *ngIf="budgetValidationForm.get('codeUL').dirty && budgetValidationForm.get('codeUL').errors">Entrer un
+                code
+                d'unité Local!
+              </nz-form-explain>
+            </nz-form-control>
+          </nz-form-item>
 
-      <nz-form-item>
-        <nz-form-label nzRequired>Code UL</nz-form-label>
-        <nz-form-control>
-          <input formControlName="codeUL" nz-input required placeholder="Code UL"/>
-          <nz-form-explain
-            *ngIf="budgetValidationForm.get('codeUL').dirty && budgetValidationForm.get('codeUL').errors">Entrer un code
-            d'unité Local!
-          </nz-form-explain>
-        </nz-form-control>
-      </nz-form-item>
+          <nz-form-item>
+            <nz-form-label nzRequired>Année</nz-form-label>
+            <nz-form-control>
+              <nz-year-picker formControlName="datePicker" nzPlaceHolder="Choisie une année"></nz-year-picker>
+              <nz-form-explain
+                *ngIf="budgetValidationForm.get('datePicker').dirty && budgetValidationForm.get('datePicker').errors">
+                Choisissez une année!
+              </nz-form-explain>
+            </nz-form-control>
+          </nz-form-item>
 
-      <nz-form-item>
-        <nz-form-label nzRequired>Année</nz-form-label>
-        <nz-form-control>
-          <nz-year-picker formControlName="datePicker" nzPlaceHolder="Choisie une année"></nz-year-picker>
-          <nz-form-explain
-            *ngIf="budgetValidationForm.get('datePicker').dirty && budgetValidationForm.get('datePicker').errors">
-            Choisissez une année!
-          </nz-form-explain>
-        </nz-form-control>
-      </nz-form-item>
-
-      <button nz-button nzType="primary"><i nz-icon nzType="search"></i>Chercher</button>
-
+          <button nz-button nzType="primary"><i nz-icon nzType="search"></i>Chercher</button>
+        </div>
+        <div class="col-lg-2 text-right">
+          <button nz-button nzType="primary" style="text-align: right !important;" (click)="exportBudgetToExcel()">
+            <i nz-icon nzType="file-excel" theme="outline"></i>
+            <span>Exporter</span>
+          </button>
+        </div>
+      </div>
     </form>
   </div>
 

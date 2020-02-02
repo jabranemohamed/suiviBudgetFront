@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BudgetService} from "../../../shared/services/budget.service";
 import {TableService} from "../../../shared/services/table.service";
+import {ExportService} from "../../../shared/services/export.service";
 
 @Component({
   selector: 'app-budgets',
@@ -20,7 +21,8 @@ export class BudgetsComponent implements OnInit {
   indeterminate: boolean = false;
   search: any;
 
-  constructor(private resgisterFB: FormBuilder, private budgetService: BudgetService, public tableSvc: TableService) {
+  constructor(private resgisterFB: FormBuilder, private budgetService: BudgetService,
+              public tableSvc: TableService,private exportservice:ExportService) {
   }
 
   ngOnInit() {
@@ -84,5 +86,17 @@ export class BudgetsComponent implements OnInit {
     });
     this.refreshStatus();
   }
+
+  exportBudgetToExcel() {
+    var filteredData = [];
+    for (var key in this.displayData){
+      filteredData.push({ 'Grand Activité' : this.displayData[key].budgetId.grandeActivite,'Activité':this.displayData[key].budgetId.activite
+        ,'Budget Notifié':this.displayData[key].budget_notifie, 'Estime1' : this.displayData[key].estime1,'Estime2' : this.displayData[key].estime2,'Estime3' : this.displayData[key].estime3,'Estime' : this.displayData[key].estime1 });
+    }
+    this.exportservice.exportExcel(filteredData,'Budget')
+  }
+
+
+
 
 }
