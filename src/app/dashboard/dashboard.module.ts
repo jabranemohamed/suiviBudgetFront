@@ -7,9 +7,7 @@ import { NgChartjsModule } from 'ng-chartjs';
 import { ThemeConstantService } from '../shared/services/theme-constant.service';
 
 import { DefaultDashboardComponent } from './default/default-dashboard.component';
-import { EcommerceDashboardComponent } from './e-commerce/e-commerce-dashboard.component';
 import { ProjectsDashboardComponent } from './projects/projects-dashboard.component';
-import { CrmDashboardComponent } from './crm/crm-dashboard.component';
 
 @NgModule({
     imports: [
@@ -21,9 +19,7 @@ import { CrmDashboardComponent } from './crm/crm-dashboard.component';
     exports: [],
     declarations: [
         DefaultDashboardComponent,
-        EcommerceDashboardComponent,
-        ProjectsDashboardComponent,
-        CrmDashboardComponent
+        ProjectsDashboardComponent
     ],
     providers: [
         ThemeConstantService

@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AffixComponent } from './affix/affix.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { dropdownComponent } from './dropdown/dropdown.component';
 import { menuComponent } from './menu/menu.component';
 import { pageHeaderComponent } from './page-header/page-header.component';
 import { paginationComponent } from './pagination/pagination.component';
-import { stepsComponent } from './steps/steps.component';
 
 const routes: Routes = [
     {
@@ -20,13 +18,6 @@ const routes: Routes = [
                 path: '',
                 redirectTo: '/dashboard',
                 pathMatch: 'full'
-            }, 
-            {
-                path: 'affix',
-                component: AffixComponent,
-                data: {
-                    title: 'Affix'
-                }
             },
             {
                 path: 'breadcrumb',
@@ -61,13 +52,6 @@ const routes: Routes = [
                 component: paginationComponent,
                 data: {
                     title: 'Pagination'
-                }
-            },
-            {
-                path: 'steps',
-                component: stepsComponent,
-                data: {
-                    title: 'Steps'
                 }
             }
         ]

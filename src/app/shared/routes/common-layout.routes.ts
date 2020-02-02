@@ -36,14 +36,6 @@ export const CommonLayout_ROUTES: Routes = [
             {
                 path: '',
                 loadChildren: () => import('../../components/data-entry/components-data-entry.module').then(m => m.ComponentsDataEntryModule),canActivate: [AuthGuard]
-            },
-            {
-                path: '',
-                loadChildren: () => import('../../components/data-display/components-data-display.module').then(m => m.ComponentsDataDisplayModule),canActivate: [AuthGuard]
-            },
-            {
-                path: '',
-                loadChildren: () => import('../../components/feedback/components-feedback.module').then(m => m.ComponentsFeedbackModule),canActivate: [AuthGuard]
             }
         ],
         data: {
