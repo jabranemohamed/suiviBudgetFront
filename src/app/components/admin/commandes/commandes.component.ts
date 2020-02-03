@@ -4,6 +4,7 @@ import {CommandeService} from "../../../shared/services/commande.service";
 import {BudgetService} from "../../../shared/services/budget.service";
 import {NzModalService} from "ng-zorro-antd";
 import {TableService} from "../../../shared/services/table.service";
+import {ExportService} from "../../../shared/services/export.service";
 
 @Component({
   selector: 'app-commandes',
@@ -30,7 +31,8 @@ export class CommandesComponent implements OnInit {
   selectedBudget: any;
 
   constructor(private resgisterFB: FormBuilder, private commandService: CommandeService
-    , private budgetService: BudgetService, private modalService: NzModalService, public tableSvc: TableService) {
+    , private budgetService: BudgetService, private modalService: NzModalService, public tableSvc: TableService
+    , private exportservice: ExportService) {
   }
 
   ngOnInit() {
@@ -104,20 +106,24 @@ export class CommandesComponent implements OnInit {
       nzTitle: 'Choisir un budget',
       nzContent: selectBudgetContent,
       nzWidth: 1000,
-      nzOnOk   : () => console.log('OK')
+      nzOnOk: () => console.log('OK')
     })
   }
 
   budgetSelection(budget: any) {
     this.selectedBudget = budget;
     this.selectedCommand.grande_activite = budget.budgetId.grandeActivite
-    this.selectedCommand.activite   = budget.budgetId.activite
-    this.selectedCommand.notifie   = budget.budget_notifie
-    this.selectedCommand.bud_budgget_estime1   = budget.estime1
-    this.selectedCommand.bud_budgget_estime2   = budget.estime2
-    this.selectedCommand.bud_budgget_estime3   = budget.estime3
-    this.selectedCommand.bud_budgget_estime4   = budget.estime4
+    this.selectedCommand.activite = budget.budgetId.activite
+    this.selectedCommand.notifie = budget.budget_notifie
+    this.selectedCommand.bud_budgget_estime1 = budget.estime1
+    this.selectedCommand.bud_budgget_estime2 = budget.estime2
+    this.selectedCommand.bud_budgget_estime3 = budget.estime3
+    this.selectedCommand.bud_budgget_estime4 = budget.estime4
   }
 
 
+  exportCommandToExcel() {
+    this.exportservice.exportExcel(this.tableEditableCellDataSet, 'Budget')
+
+  }
 }

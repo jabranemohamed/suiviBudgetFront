@@ -32,10 +32,6 @@ export const CommonLayout_ROUTES: Routes = [
             {
                 path: '',
                 loadChildren: () => import('../../components/navigation/components-navigation.module').then(m => m.ComponentsNavigationModule),canActivate: [AuthGuard]
-            },
-            {
-                path: '',
-                loadChildren: () => import('../../components/data-entry/components-data-entry.module').then(m => m.ComponentsDataEntryModule),canActivate: [AuthGuard]
             }
         ],
         data: {
